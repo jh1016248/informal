@@ -1,0 +1,2 @@
+<include src="/components/page_template/index.wxml" />
+<text>index</text>

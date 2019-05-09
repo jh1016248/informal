@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>瀑布流图片</title>
+    <style>
+        #waterfall-wrap {
+            width: 1000px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="waterfall-wrap"></div>
+    <script src="waterfall.js"></script>
+    <script>
+        const imgs = [
+            'https://img.ssyer.com/picture/full/H12NwbN4m.jpg',
+            'https://img.ssyer.com/picture/full/BkxP-4sEnf.jpg',
+            'https://img.ssyer.com/picture/full/ryWfFodB2z.jpg',
+            'https://img.ssyer.com/picture/full/SJGgR1S3z.jpg',
+            'https://img.ssyer.com/picture/full/HyWfJIGl47.jpg',
+        ]
+
+        const config = {
+            el: '#waterfall-wrap',
+            colCount: 4,
+            gap: 10
+        }
+
+        const waterFall = new WaterFall(config);
+        waterFall.addEventListener('reachBottom', (next) => {
+            console.log('loading...')
+            setTimeout(() => {
+                waterFall.push(imgs)
+                next()
+            }, 300)
+        })
+        waterFall.addEventListener('itemClick', (item) => {
+            console.log(item)
+        })
+
+        let i = 0;
+        setInterval(() => {
+            if (i < 2) {
+                waterFall.push(imgs)
+                i++;
+            }
+        }, 10)
+
+    </script>
+</body>
+
+</html>

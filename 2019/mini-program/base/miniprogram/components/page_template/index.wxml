@@ -1,0 +1,2 @@
+<loading id="loading" loadingVisible="{{ $loadingVisible }}"></loading>
+<toast id="tosat" toastData="{{ $toastData }}"></toast>

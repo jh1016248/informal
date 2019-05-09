@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>瀑布流图片-自定义模板</title>
+    <style>
+        #waterfall-wrap {
+            width: 800px;
+            margin: 0 auto;
+        }
+        .test{
+            position: relative;
+            background: #fff;
+            overflow: hidden;
+        }
+        .test img{ 
+            display: block;
+        }
+        .test .name{
+            position: absolute;
+            height: 50px;
+            line-height: 50px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,.6);
+            text-align: center;
+            transition: all .3s;
+            opacity: 0;
+            transform: translateY(100%);
+            color: #fff;
+        }
+        .test:hover .name{
+            opacity: 1;
+            transform: translateY(0)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="waterfall-wrap"></div>
+    <script src="waterfall.js"></script>
+    <script>
+        const list = [
+            {
+                img: 'https://img.ssyer.com/picture/full/H12NwbN4m.jpg',
+                name: '图1',
+                view: 2
+            },
+            {
+                img: 'https://img.ssyer.com/picture/full/BkxP-4sEnf.jpg',
+                name: '图2',
+                view: 3
+            },
+            {
+                img: 'https://img.ssyer.com/picture/full/ryWfFodB2z.jpg',
+                name: '图2',
+                view: 3
+            },
+            {
+                img: 'https://img.ssyer.com/picture/full/SJGgR1S3z.jpg',
+                name: '图2',
+                view: 3
+            },
+            {
+                img: 'https://img.ssyer.com/picture/full/HyWfJIGl47.jpg',
+                name: '图2',
+                view: 3
+            }
+        ]
+        const template = `
+            <div class="test">
+                <img src="{{img}}" />
+                <div class="name">
+                    {{name}}
+                    <span>查看{{view}}</span>
+                </div>
+            </div>
+            `
+        const waterFall = new WaterFall({ template, el: '#waterfall-wrap', imgKey: 'img' });
+        waterFall.addEventListener('reachBottom', (next) => {
+            console.log('loading...')
+            setTimeout(() => {
+                waterFall.push(list)
+                next()
+            }, 60)
+        })
+        waterFall.addEventListener('itemClick', (item) => {
+            console.log(item)
+        })
+
+        let i = 0;
+        setInterval(() => {
+            if (i < 2) {
+                waterFall.push(list)
+                i++;
+            }
+        }, 10)
+
+    </script>
+</body>
+
+</html>

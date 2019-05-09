@@ -1,0 +1,5 @@
+<view style="{{toastData.topValueInFixedPositon ? 'top: ' + toastData.topValueInFixedPositon : 'top: 45%'}}" class="pin-toast-container" hidden="{{!toastData.visible}}">
+    <view class="pin-toast {{toastData.visible == null ? '' : (toastData.visible ? 'fade-in' : 'fade-out')}}">
+        <text>{{toastData.toastMessage}}</text>
+    </view>
+</view>

@@ -1,0 +1,16 @@
+<view class="model_dialog {{className}} {{visible ? 'active' : ''}}">
+    <view class="modal-mask" bindtap='close'></view>
+    <view class="container">
+        <view class="title {{titleBorder? 'border': ''}}" wx:if="{{title != ''}}">
+            {{title}}
+            <view class="icon-close" bindtap='close' wx:if="{{showCloseIcon}}">
+                <image src="/images/icon/icon-close.png"></image>
+            </view>
+        </view>
+        <view class="content" style="min-height: {{title == '' ? '670rpx' : '570rpx'}}">
+            <slot></slot>
+        </view>
+        <button class="footer-btn btn-red" wx:if="{{showBtn}}" bindtap='handleConfirm'>{{btnText}}</button>
+    </view>
+</view>
+    
