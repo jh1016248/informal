@@ -1,5 +1,5 @@
 import { connect } from 'dva';
-import { Table, Pagination, Popconfirm } from 'antd';
+import { Table, Pagination, Button, Popconfirm } from 'antd';
 import styles from './users.css';
 import { PAGE_SIZE } from '../constants';
 import { routerRedux } from 'dva/router';
@@ -11,7 +11,6 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
             type: 'users/remove',
             payload: id
         })
-        console.warn(`TODO: ${id}`);
     }
 
     function changePagination(page) {
@@ -21,6 +20,18 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
         }));
     }
 
+    function handleOk(id, values) {
+        dispatch({
+            type: 'users/editUser',
+            payload: { id, values }
+        })
+    }
+    function createHandle(values) {
+        dispatch({
+            type: 'users/create',
+            payload: values
+        })
+    }
     const colums = [
         {
             title: 'Name',
@@ -36,12 +47,12 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
         {
             title: 'Operation',
             key: 'operation',
-            render: (text, { id }) => (
+            render: (text, record) => (
                 <span className={styles.operation}>
-                    <UserEditModal>
+                    <UserEditModal record={record} handleOk={handleOk.bind(null, record.id)}>
                         <a>Edit</a>
                     </UserEditModal>
-                    <Popconfirm title="Confirm to delete?" onConfirm={deleteHandle.bind(null, id)}>
+                    <Popconfirm title="Confirm to delete?" onConfirm={deleteHandle.bind(null, record.id)}>
                         <a href="">Delete</a>
                     </Popconfirm>
                 </span>
@@ -51,6 +62,11 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
 
     return (
         <div className={styles.normal}>
+            <div  className={styles.create}>
+                <UserEditModal record={{}} handleOk={createHandle}>
+                    <Button>创建用户</Button>
+                </UserEditModal>
+            </div>
             <div>
                 <Table
                     loading={loading}

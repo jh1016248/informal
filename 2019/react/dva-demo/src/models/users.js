@@ -33,7 +33,17 @@ export default {
             yield call(userService.remove, id);
             const page = yield select(state => state.users.page);
             yield put({ type: fetch, payload: { page } })
-        }
+        },
+        *editUser({ payload: { id, values } }, { call, put, select } ) {
+            yield call(userService.editUser, id, values)
+            const page = yield select(state => state.users.page);
+            yield put({ type: 'fetch', payload: { page } });
+        },
+        *create({ payload: values }, { call, put, select }) {
+            yield call(userService.create, values);
+            const page = yield select(state => state.users.page);
+            yield put({ type: 'fetch', payload: { page } })
+        },
     },
     subscriptions: {
         setup({ dispatch, history }) {
