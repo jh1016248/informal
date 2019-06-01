@@ -5,6 +5,7 @@ var babel = require('gulp-babel');
 var livereload = require('gulp-livereload');
 //编译es6
 gulp.task('babel', () => {
+  console.log(11)
   return gulp.src(['src/*.js'])
     .pipe(babel({ presets: ['@babel/env'] }))
     .pipe(gulp.dest('dist'))

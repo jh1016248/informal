@@ -3,7 +3,9 @@ function imageFromPath(path) {
     img.src = `../images/${path}`;
     return img
 };
-
+function log(msg) {
+    console.log.call(console, msg)
+}
 const allImage = {
     background: '../images/background.jpg',
     ball: '../images/ball.png',

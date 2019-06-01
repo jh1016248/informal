@@ -162,6 +162,7 @@ class Game {
     let main = g.main
     g.timer = setInterval(function () {
       // actions集合
+      console.log(1)
       let actions = Object.keys(g.actions)
       for (let i = 0; i < actions.length; i++) {
         let key = actions[i]
