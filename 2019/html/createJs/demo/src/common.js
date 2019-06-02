@@ -1,3 +1,4 @@
+
 function imageFromPath(path) {
     let img = new Image();
     img.src = `../images/${path}`;
@@ -9,4 +10,10 @@ function log(msg) {
 const allImage = {
     background: '../images/background.jpg',
     ball: '../images/ball.png',
+    paddle: '../images/paddle.png',
 };
+
+
+function observer() {
+
+}

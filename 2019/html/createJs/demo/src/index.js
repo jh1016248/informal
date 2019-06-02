@@ -1,9 +1,6 @@
-
-
-
-
 window.addEventListener('DOMContentLoaded', () => {
     const _main = {
+        stage: new createjs.Stage('canvas'),
         LV: 1,
         scene: null,
         blockList: null,
@@ -12,14 +9,20 @@ window.addEventListener('DOMContentLoaded', () => {
         score: null,
         ball_x: 491,
         ball_y: 432,
+        paddle_x: 449,
+        paddle_y: 450,
+        background: imageFromPath(allImage.background),
         game: null,
         init() {
+            const background = new createjs.Bitmap(this.background);
+            this.stage.addChild(background);
             this.ball = new Ball(this);
             this.game = new Game(this);
+            this.paddle = new Paddle(this);
             this.game.init();
         }
     };
-    main.init();
+    _main.init();
 })
 
 

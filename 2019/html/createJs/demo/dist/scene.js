@@ -9,15 +9,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Ball =
 /*#__PURE__*/
 function () {
-  function Ball() {
+  function Ball(main) {
     _classCallCheck(this, Ball);
 
-    this.a = 1;
+    var b = {
+      width: 18,
+      height: 18,
+      x: main.ballX,
+      y: main.ballY,
+      speedX: 1,
+      speedY: 5,
+      image: imageFromPath(allImage.ball),
+      ball: ball
+    };
+    Object.assign(this, b);
+    this.init();
   }
 
   _createClass(Ball, [{
     key: "init",
-    value: function init() {}
+    value: function init() {
+      this.ball = new createjs.Bitmap(this.image);
+    }
+  }, {
+    key: "move",
+    value: function move() {
+      this.x -= this.speedX;
+      this.y -= this.speedY;
+    }
   }]);
 
   return Ball;

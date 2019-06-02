@@ -29,7 +29,19 @@ function () {
 
   _createClass(Game, [{
     key: "init",
-    value: function init() {}
+    value: function init() {
+      var ball = this.main.ball;
+      this.setTimer(ball);
+    }
+  }, {
+    key: "setTimer",
+    value: function setTimer(ball) {
+      // return false;
+      this.timer = setInterval(function () {
+        ball.move();
+        draw(ball);
+      }, 1000 / 60);
+    }
   }, {
     key: "resetGame",
     value: function resetGame() {}

@@ -6,15 +6,39 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+window.addEventListener('DOMContentLoaded', function () {
+  var _main = {
+    stage: new createjs.Stage('canvas'),
+    LV: 1,
+    scene: null,
+    blockList: null,
+    ball: null,
+    paddle: null,
+    score: null,
+    ball_x: 491,
+    ball_y: 432,
+    game: null,
+    init: function init() {
+      this.ball = new Ball(this);
+      this.game = new Game(this);
+      this.game.init();
+    }
+  };
+
+  _main.init();
+});
+
 function test() {
   var stage = new createjs.Stage('canvas');
   var bitmap = new createjs.Bitmap(allImage.background);
   stage.addChild(bitmap);
-  stage.update();
+  setTimeout(function () {
+    stage.update();
+  });
   var main = {
     stage: stage
   };
-  new Pen(main);
+  var game = new Game(main);
 }
 
 var Pen =
@@ -44,21 +68,26 @@ function () {
       var newShape;
       stage.addEventListener('mousedown', function (e) {
         _this.painting = true;
-        var myGraphics = new createjs.Graphics();
-        myGraphics.beginFill("red").drawRect(e.stageX, e.stageY, 1, 1);
-        newShape = new createjs.Shape(myGraphics);
-        stage.addChild(newShape);
-        stage.update();
+        _this.stageX = e.stageX;
+        _this.stageY = e.stageY;
+
+        if (!newShape) {
+          var myGraphics = new createjs.Graphics();
+          myGraphics.setStrokeStyle(2, "round").moveTo(e.stageX, e.stageY);
+          newShape = new createjs.Shape(myGraphics);
+          stage.addChild(newShape);
+        }
       });
       stage.addEventListener('stagemousemove', function (e) {
         if (_this.painting) {
-          log(newShape);
-          newShape.graphics.lineTo(e.stageX, e.stageY);
+          newShape.graphics.moveTo(_this.startX, _this.startY).lineTo(e.stageX, e.stageY).beginStroke('red');
           stage.update();
+          _this.startX = e.stageX;
+          _this.startY = e.stageY;
         }
       });
       stage.addEventListener('stagemouseup', function (e) {
-        log(e);
+        newShape && newShape.graphics.endStroke();
         _this.painting = false;
       });
     }
@@ -66,14 +95,3 @@ function () {
 
   return Pen;
 }();
-
-window.addEventListener('DOMContentLoaded', function () {
-  test();
-  var _main = {
-    LV: 1,
-    init: function init() {
-      var game = new Game();
-      game.init(_main);
-    }
-  }; // main.init();
-});
