@@ -16,6 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
         init() {
             const background = new createjs.Bitmap(this.background);
             this.stage.addChild(background);
+            this.scene = new Scene(this);
             this.ball = new Ball(this);
             this.game = new Game(this);
             this.paddle = new Paddle(this);
