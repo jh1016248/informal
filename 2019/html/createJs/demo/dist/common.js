@@ -14,5 +14,9 @@ function log(msg) {
 
 var allImage = {
   background: '../images/background.jpg',
-  ball: '../images/ball.png'
+  ball: '../images/ball.png',
+  paddle: '../images/paddle.png',
+  block1: '../images/block_01.png'
 };
+
+function observer() {}

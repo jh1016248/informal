@@ -17,10 +17,17 @@ window.addEventListener('DOMContentLoaded', function () {
     score: null,
     ball_x: 491,
     ball_y: 432,
+    paddle_x: 449,
+    paddle_y: 450,
+    background: imageFromPath(allImage.background),
     game: null,
     init: function init() {
+      var background = new createjs.Bitmap(this.background);
+      this.stage.addChild(background);
+      this.scene = new Scene(this);
       this.ball = new Ball(this);
       this.game = new Game(this);
+      this.paddle = new Paddle(this);
       this.game.init();
     }
   };
