@@ -1,0 +1,32 @@
+{
+  "name": "pc-live",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack-dev-server --client-log-level none --color --inline --hot"
+  },
+  "dependencies": {
+    "async-validator": "^1.11.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "core-js": "^2.6.5",
+    "ts-loader": "^4.2.0",
+    "typescript": "^2.8.1"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.6.0"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
