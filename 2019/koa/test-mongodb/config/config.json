@@ -1,0 +1,14 @@
+{
+    "port": "4000",
+    "adminAccount": "admin",
+    "db": {
+      "servername": "localhost",
+      "DATABASE": "tiehu",
+      "port": 27017,
+      "user": "",
+      "pass": "",
+      "authSource": "admin"
+    },
+    "baseURL": "http://localhost:4000"
+  }
+  

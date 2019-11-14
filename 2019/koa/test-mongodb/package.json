@@ -1,0 +1,24 @@
+{
+  "name": "test-mongodb",
+  "version": "1.0.0",
+  "description": "koa test project",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jh009988",
+  "license": "ISC",
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-cors": "^0.0.16",
+    "koa-jwt": "^3.6.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.7.10",
+    "path": "^0.12.7"
+  }
+}
