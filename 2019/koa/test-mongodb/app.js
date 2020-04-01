@@ -37,15 +37,12 @@ app.use(koajwt({ secret: SECRET }).unless({
 }))
 
 router.use(async (ctx, next) => {
-    let token = ctx.setHeaders.authorization
+    let token = ctx.headers.authorization
     if(token) {
         ctx.state.user =  jsonwebtoken.verify(token.split(' ')[1], SECRET)
     }
-    
+    console.log(ctx.state.user)
     ctx.state.SECRET = SECRET
-    ctx.state.user = {
-        name: 'john',
-    }
     await next()
 })
 
