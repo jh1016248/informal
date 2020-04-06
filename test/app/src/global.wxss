@@ -1,0 +1,102 @@
+.article-list .item {
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  padding-bottom: 10px;
+}
+.article-list .item .article-container {
+  flex: 1;
+  margin-right: 40px;
+}
+.article-list .item .article-container .title {
+  color: #333;
+  font-size: 18px;
+  line-height: 1.2;
+  padding: 10px 0;
+}
+.article-list .item .article-container .title:hover {
+  cursor: pointer;
+}
+.article-list .item .article-thumb {
+  width: 100px;
+  height: 100px;
+}
+.article-container .title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  padding: 20px 0;
+}
+.comment-container .comment-title {
+  text-align: center;
+  color: #8a9aa9;
+  font-size: 16px;
+  padding: 1.67rem 0 5px;
+}
+.comment-container .comment-form {
+  display: flex;
+  position: relative;
+  padding: 1rem 1.333rem;
+  background-color: #fafbfc;
+  border-radius: 3px;
+  margin: 1.333rem 0;
+}
+.comment-container .comment-form .avatar-box .avatar {
+  margin: 0 1rem 0 0;
+  width: 2.667rem;
+  height: 2.667rem;
+  border-radius: 50%;
+}
+.comment-container .comment-form .form-box {
+  flex: 1 1 auto;
+  position: relative;
+}
+.comment-container .comment-form .form-box .input-box {
+  font-size: 0;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  border-radius: 3px;
+}
+.comment-container .comment-form .form-box .comment-input {
+  display: block;
+  position: relative;
+  padding: .6rem 1rem;
+  font-size: 1.083rem;
+  line-height: 1.7;
+  color: #17181a;
+  outline: none;
+}
+.comment-container .comment-form .form-box .comment-input:before {
+  content: attr(placeholder);
+  position: absolute;
+  opacity: .4;
+  pointer-events: none;
+  user-select: none;
+}
+.comment-container .comment-list {
+  margin: 0 1.666rem 0 4.85rem;
+}
+html,
+body,
+#root {
+  height: 100%;
+  font-size: 12px;
+}
+body {
+  background: #f5f5f5;
+  margin: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+.wrap {
+  width: 1000px;
+  margin: 20px auto 0;
+}
+.wrap .container {
+  width: 70%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}

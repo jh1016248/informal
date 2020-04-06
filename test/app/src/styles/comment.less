@@ -1,0 +1,77 @@
+.comment-container{
+    .comment-title{
+        text-align: center;
+        color: #8a9aa9;
+        font-size: 16px;
+        padding: 1.67rem 0 5px;
+    }
+    .comment-form{
+        display: flex;
+        position: relative;
+        padding: 1rem 1.333rem;
+        background-color: #fafbfc;
+        border-radius: 3px;
+        margin: 1.333rem 0;
+        .avatar-box{
+            .avatar{
+                margin: 0 1rem 0 0;
+                width: 2.667rem;
+                height: 2.667rem;
+                border-radius: 50%;
+            }
+        }
+        .form-box{
+            flex: 1 1 auto;
+            position: relative;
+            .input-box{
+                font-size: 0;
+                background-color: #fff;
+                border: 1px solid #f1f1f1;
+                border-radius: 3px;
+            }
+            .comment-input{
+                display: block;
+                box-sizing: border-box;
+                position: relative;
+                padding: .6rem 1rem;
+                font-size: 1.083rem;
+                line-height: 1.7;
+                color: #17181a;
+                border: none;
+                width: 100%;
+                outline: none;
+                &:before{
+                    content: attr(placeholder);
+                    position: absolute;
+                    opacity: .4;
+                    pointer-events: none;
+                    user-select: none;
+                }
+            }
+        }
+    }
+    .comment-list{
+        margin: 0 1.666rem 0 4.85rem;
+        .comment-item{
+            display: flex;
+            .avatar{
+                width: 30px;
+                height: 30px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+            .content-box{
+                flex: 1;
+                margin-left: 10px;
+                border-bottom: 1px solid #f5f5f5;
+                padding-bottom: 10px;
+                .meta-box{
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}

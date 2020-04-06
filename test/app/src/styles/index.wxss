@@ -1,0 +1,28 @@
+.article-list .item {
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  padding-bottom: 10px;
+}
+.article-list .item .article-container {
+  flex: 1;
+  margin-right: 40px;
+}
+.article-list .item .article-container .title {
+  color: #333;
+  font-size: 18px;
+  line-height: 1.2;
+  padding: 10px 0;
+}
+.article-list .item .article-container .title:hover {
+  cursor: pointer;
+}
+.article-list .item .article-thumb {
+  width: 100px;
+  height: 100px;
+}
+.article-container .title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  padding: 20px 0;
+}
