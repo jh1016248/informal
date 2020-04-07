@@ -1,0 +1,40 @@
+import axios from 'axios';
+import { notification } from 'antd';
+
+const request = axios.create();
+
+
+request.interceptors.request.use(config => {
+    config.headers['Authorization'] = localStorage.token;
+    return config
+})
+
+request.interceptors.response.use(response => {
+    if(response.status === 401) {
+        notification.error({
+            message: '请重新登录',
+        });
+        window.location.href = '/login';
+        return 
+    }
+    if(response.status !== 200) {
+        notification.error({
+            message: response.message || '不知名错误',
+        });
+    }
+    
+    return response.data
+}, (e) => {
+    if(e.message === 'Request failed with status code 401') {        
+        notification.error({
+            message: '请重新登录',
+        });
+        window.location.href = '/login';
+        return 
+    }
+    
+    console.log(JSON.parse(JSON.stringify(e)))
+    console.log(e.config)
+})
+
+export default request;
