@@ -1,6 +1,7 @@
 import styles from './index.css';
 
 function BasicLayout({ location, children }) {
+  const customerPages = ['/login', '/editor']
   const normPage = () => {
     return (
       <div className={styles.normal}>
@@ -13,7 +14,7 @@ function BasicLayout({ location, children }) {
       </div>
     )
   }
-  return location.pathname === '/login' ? children : normPage()
+  return customerPages.includes(location.pathname) ? children : normPage()
   
 }
 

@@ -1,5 +1,4 @@
-
-import react, { useEffect, useRef, useState } from 'react'; 
+import { useRef } from 'react'; 
 import { router } from 'umi';
 import { login } from '@/services/user';
 

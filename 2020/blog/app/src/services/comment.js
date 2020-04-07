@@ -5,6 +5,6 @@ export const getComment = ( articleId ) => {
     return request.get(`${CONFIG.url}/comment/getComment`, { params: { articleId } })
 }
 
-export const sendComment = ({ articleId, content, repliesId }) => {
-    return request.post(`${CONFIG.url}/comment/sendComment`,{ articleId, content, repliesId })
+export const sendComment = ({ articleId, content, replyId, replyUserId, replyUserName }) => {
+    return request.post(`${CONFIG.url}/comment/sendComment`,{ articleId, content, replyId, replyUserId, replyUserName })
 }

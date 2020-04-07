@@ -1,50 +1,72 @@
 const Comment = require('../models/comment')
+const Reply = require('../models/Reply')
 
 exports.getComment = async ( ctx, next ) => {
     const { articleId } = ctx.request.query;
-    const res = await Comment.find({ articleId })
-    ctx.body = {
-        code: 200,
-        data: res
+    const list = await Comment.find({ articleId })
+    let index = 0;
+    const findChildren = async () => {
+        if(index >= list.length - 1) {
+            ctx.body = {
+                code: 200,
+                data: list
+            }
+            return
+        }
+        const item = list[index];
+        item.children = await Reply.find({ replyId: item._id })
+        index ++;
+        findChildren()
     }
+    findChildren()
 }
 
 exports.sendComment = async ( ctx, next ) => {
-    const { articleId, content, repliesId = '' } = ctx.request.body;
+    const { articleId, content, replyId = '', replyUserId = '', replyUserName = '' } = ctx.request.body;
     const now = new Date();
     const user = ctx.user;
-
-    console.log(user)
-
-    // id: {type: String},
-    // articleId: {type: String},
-    // author: {type: Number},
-    // authorName: {type: String},
-    // thumb: {type: String},
-    // repliesId: {type: Number},
-    // content: {type: String},
-    // createTime: {type: Date},
-    const comment = {  
+    const comment = {
         articleId,
         content,
         createTime: now,
-        repliesId, 
+        replyId, 
+        replyUserId,
+        replyUserName,
         author: user._id,
         authorName: user.account,
         authorAvatar: user.avatar,
     }
-    try{
-        const res = await Comment.create(comment)
-        ctx.body = {
-            code: 200,
-            data: res
+
+    if(replyId !== '') {
+        try{
+            const res = await Reply.create(comment)
+            ctx.body = {
+                code: 200,
+                data: res
+            }
+        }
+        catch (e){
+            ctx.body = {
+                code: 0,
+                data: e,
+                message: '留言失败'
+            }
         }
     }
-    catch (e){
-        ctx.body = {
-            code: 0,
-            data: e,
-            message: '留言失败'
+    else {
+        try{
+            const res = await Comment.create(comment)
+            ctx.body = {
+                code: 200,
+                data: res
+            }
+        }
+        catch (e){
+            ctx.body = {
+                code: 0,
+                data: e,
+                message: '留言失败'
+            }
         }
     }
 }

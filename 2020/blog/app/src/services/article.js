@@ -7,3 +7,6 @@ export const getArticles = ({ size, page }) => {
 export const getArticleDetail = ({ id }) => {
     return request.get(`${CONFIG.url}/article/getArticleDetail`, { params: {id} })
 }
+export const publishArticle = ({ content, title }) => {
+    return request.post(`${CONFIG.url}/article/publishArticle`, { title, content })
+}

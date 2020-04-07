@@ -51,7 +51,7 @@ function Login(props) {
                         </Form>
                         <div className="mb10"></div>
                         <div className="text-r">
-                            <a to="/register" style={{ marginRight: '10px' }}>注册</a>
+                            {/* <a to="/register" style={{ marginRight: '10px' }}>注册</a> */}
                             <Button type="primary" htmlType="submit" size="large" onClick={submit}>登录</Button>
                         </div>
                     </div>

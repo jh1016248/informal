@@ -1,6 +1,6 @@
 @import "./styles/index.less";
 
-html, body, #root {
+html, body {
   height: 100%;
   font-size: 12px;
 }
@@ -10,10 +10,82 @@ body {
   margin: 0;
 }
 
-*{
+body {
+  -webkit-text-size-adjust:none;
+  font-size: 14px;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,PingFang SC,Source Han Sans CN,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+}
+div{
+  box-sizing: border-box
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:focus,a:hover,a:visited {
+  outline: 0;
+  text-decoration: none;
+}
+a:active,a:hover {
+  outline: 0;
+}
+div {
   margin: 0;
-  padding: 0;
-  line-height: 1;
+  -webkit-tap-highlight-color: rgba(0 , 0, 0, 0);
+}
+input{
+  outline:none;
+  font-size: 14px;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: normal;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+img,table{
+  border:0
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+ins {
+  text-decoration: none;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+select {
+  -webkit-appearance:button;
+  border: 0px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
 }
 
 .wrap{
@@ -25,4 +97,8 @@ body {
     padding: 20px;
     border-radius: 10px;
   }
+}
+
+.flex1{
+  flex: 1;
 }

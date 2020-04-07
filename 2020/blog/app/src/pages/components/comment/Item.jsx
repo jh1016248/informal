@@ -1,5 +1,8 @@
+import CommentForm from './CommentForm'
+import { useState } from 'react'
 
-export default ({ data }) => {
+export default ({ data, articleId, onSuccess }) => {
+    const [showComment, setShowComment] = useState(false);
 
     return (
         <div className="comment-item">
@@ -12,12 +15,20 @@ export default ({ data }) => {
                 </div>
                 <div className="content">{ data.content }</div>
                 <div className="reply-stat">
-                    <time class="time">{ data.createTime }</time>
+                    <time className="time">{ data.createTime }</time>
                     <div className="action-box">
                         <div className="like-action"></div>
-                        <div className="comment-action"></div>
+                        <div className="comment-action" onClick={ () => { setShowComment(!showComment) } }>回复</div>
                     </div>
                 </div> 
+                {showComment ? 
+                    <CommentForm
+                        showAvatar={false}
+                        articleId={articleId}
+                        replyId={ data._id }
+                        replyUserName={ data.authorName }
+                        replyUserId={ data.author }
+                        onSuccess={onSuccess}></CommentForm> : null}
             </div>
         </div>
     )

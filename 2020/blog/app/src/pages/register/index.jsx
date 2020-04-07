@@ -1,5 +1,5 @@
 
-import react, { useEffect, useRef, useState } from 'react'; 
+import { useRef } from 'react'; 
 import { signup } from '@/services/user';
 
 export default () => {
