@@ -15,7 +15,11 @@ require('./libs/database')
 const app = new Koa()
 
 app.use(logger())
-app.use(koaBody({ multipart: true }))
+app.use(koaBody({ 
+  multipart: true, 
+  "formLimit":"5mb",
+  "jsonLimit":"5mb",
+  "textLimit":"5mb" }))
 
 // 跨域
 app.use(cors({

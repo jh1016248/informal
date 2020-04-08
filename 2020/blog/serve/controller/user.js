@@ -18,14 +18,19 @@ module.exports = {
             const token = jsonwebtoken.sign(userToken, CONFIG.secret, { expiresIn:  '1h' });
             ctx.body = {
                 code: 200,
-                token: "Bearer " + token
+                data: "Bearer " + token
             }
         }
     },
     async signup(ctx, next) {
-        const user = ctx.request.body
+        const body = ctx.request.body;
+        const user = {
+            account: body.account,
+            password: body.password,
+            name: body.account
+        }
         const oldUser = await UserModel.findOne({ account: user.account })
-        if(oldUser._id) {
+        if(oldUser && oldUser._id) {
             ctx.body = {
                 code: 0,
                 message: '该用户名已注册，请使用其他账号'

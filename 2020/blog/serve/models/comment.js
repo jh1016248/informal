@@ -4,8 +4,6 @@ const database = require('../libs/database')
 const CommentSchema = new mongoose.Schema({
     articleId: {type: String},
     author: {type: String},
-    authorName: {type: String},
-    authorAvatar: {type: String},
     isAuthor: {type: Boolean},
     replyId: {type: String}, 
     replyUserId: {type: String}, 

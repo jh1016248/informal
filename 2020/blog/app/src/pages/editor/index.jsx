@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react'
 import BraftEditor from 'braft-editor'
-import { Button, notification } from 'antd'
+import { Button, notification, message } from 'antd'
 import 'braft-editor/dist/index.css';
-import { router } from 'umi'
+import { router, Link } from 'umi'
 import { publishArticle } from '@/services/article';
 
 export default () => {
@@ -18,14 +18,19 @@ export default () => {
 
   const handleSubmit = () => {
     const title = titleRef.current.value;
-    const content = editorValue.toHTML();
+    const content = editorValue.toHTML(); 
     const formData = {
       title,
       content,
       thumb: '',
     }
+    if(title === '') {
+      message.warning('请填写标题');
+      titleRef.current.focus();
+      return 
+    }
+
     publishArticle(formData).then(res => {
-      console.log(res)
       notification.success({
         message: '发布成功'
       })
@@ -35,7 +40,7 @@ export default () => {
   return (
     <div className="editor-page">
       <div className="editor-header">
-        <div className="logo"></div>
+        <Link className="logo" onClick={() => { router.goBack() }}></Link>
         <div className="action-box">
           <Button size="large" onClick={handleSubmit}>发布</Button>
         </div>

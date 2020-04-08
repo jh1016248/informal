@@ -32,9 +32,14 @@ request.interceptors.response.use(response => {
         window.location.href = '/login';
         return 
     }
-    
-    console.log(JSON.parse(JSON.stringify(e)))
-    console.log(e.config)
+    if(e.message === 'Request failed with status code 404') {
+        notification.error({
+            message: '服务器错误',
+        });
+        return {
+            code: 0,
+        }
+    }
 })
 
 export default request;

@@ -12,6 +12,10 @@
         background-color: #fafbfc;
         border-radius: 3px;
         margin: 1.333rem 0;
+        &.children-comment-form{
+            background: #fff;
+            border: 1px solid #f1f1f2;
+        }
         .avatar-box{
             .avatar{
                 margin: 0 1rem 0 0;
@@ -26,7 +30,6 @@
             .input-box{
                 font-size: 0;
                 background-color: #fff;
-                border: 1px solid #f1f1f1;
                 border-radius: 3px;
                 margin-bottom: 10px;
             }
@@ -41,6 +44,10 @@
                 border: none;
                 width: 100%;
                 outline: none;
+                border: 1px solid #f1f1f1;
+                &:focus{
+                    border: 1px solid #007fff;
+                }
                 &:empty::before{
                     content: attr(placeholder);
                     position: absolute;
@@ -90,6 +97,12 @@
                         cursor: pointer;
                     }
                 }
+            }
+            .comment-children{
+                background: #FAFBFC;
+                margin-top: 10px;
+                padding: 0 10px;
+                box-sizing: border-box;;
             }
         }
     }

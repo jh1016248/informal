@@ -5,8 +5,6 @@ const ReplySchema = new mongoose.Schema({
     articleId: {type: String},
     replyId: {type: String},
     author: {type: String},
-    authorName: {type: String},
-    authorAvatar: {type: String},
     isAuthor: {type: Boolean},
     replyUserId: {type: String}, 
     replyUserName: {type: String}, 

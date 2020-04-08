@@ -1,25 +1,55 @@
 const Comment = require('../models/comment')
 const Reply = require('../models/Reply')
+const getUserAggregate = require('../dbHelper/aggregates').getUserAggregate;
+
+
+const removeAll = async (articleId) => {
+    await Comment.remove({  })
+    await Reply.remove({  })
+}
+
+const asyncAction = async () => {
+    
+}
+
 
 exports.getComment = async ( ctx, next ) => {
     const { articleId } = ctx.request.query;
-    const list = await Comment.find({ articleId })
+    // const list = await Comment.aggregate([
+    //     { $match: { articleId } },
+    //     {
+    //         $lookup: {
+    //             from: 'users',
+    //             let: { "authorId": { "$toObjectId": "$author" } },
+    //             pipeline: [
+    //                 { "$match": { "$expr": { "$eq": [ "$_id", "$$authorId" ] } } },
+    //                 { "$project": { "_id": 1, "account": 1, 'name': 1, 'avatar': 1 }}
+    //             ],
+    //             as: 'user'
+    //         },
+    //     },
+    //     {$unwind:'$user'},
+    // ])
+    
+    const list = await Comment.aggregate(getUserAggregate({ articleId } ,'author'))
     let index = 0;
     const findChildren = async () => {
+        const item = list[index];
+        item.children = [];
+        const children = await Reply.aggregate(getUserAggregate({ replyId: String(item._id) } ,'author'))
+        item.children = children
         if(index >= list.length - 1) {
-            ctx.body = {
+            return ctx.body = {
                 code: 200,
                 data: list
             }
-            return
         }
-        const item = list[index];
-        item.children = await Reply.find({ replyId: item._id })
         index ++;
-        findChildren()
+        await findChildren()
     }
-    findChildren()
+    await findChildren()
 }
+
 
 exports.sendComment = async ( ctx, next ) => {
     const { articleId, content, replyId = '', replyUserId = '', replyUserName = '' } = ctx.request.body;
@@ -33,8 +63,6 @@ exports.sendComment = async ( ctx, next ) => {
         replyUserId,
         replyUserName,
         author: user._id,
-        authorName: user.account,
-        authorAvatar: user.avatar,
     }
 
     if(replyId !== '') {

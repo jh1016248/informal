@@ -10,7 +10,6 @@ module.exports = async (ctx, next) => {
     await next();
     return 
   }
-  console.log(1)
   if(!token) {
     await next()
   }
@@ -21,7 +20,6 @@ module.exports = async (ctx, next) => {
       await next()
     }
     catch(e) {
-      console.log(JSON.parse(JSON.stringify(e)))
       if(e.message === 'invalid signature') {
         ctx.body = {
           code: 401,

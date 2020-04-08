@@ -5,14 +5,16 @@ import Item from './Item'
 
 export default ({ articleId }) => {
     const [list, setList] = useState([]);
-    const getList = (articleId) => {
+    const getList = () => {
         getComment( articleId ).then(res => {
-            setList(res.data)
+            if(res.code === 200) {
+                setList(res.data)
+            }
         })
     }
     useEffect(() => {
-        getList(articleId)
-    }, [articleId])
+        getList()
+    }, [])
 
     const RenderCommentList = () => (
         <div className="comment-list">

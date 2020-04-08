@@ -14,7 +14,7 @@ export default (props) => {
         <>
            <article className="article-container">
                 <h1 className="title">{detail.title}</h1>
-                <div dangerouslySetInnerHTML={{__html: detail.content}}></div>
+                <div className="container-main" dangerouslySetInnerHTML={{__html: detail.content}}></div>
                 <Comment articleId={id}></Comment>
             </article>
         </>

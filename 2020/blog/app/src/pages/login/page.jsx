@@ -2,6 +2,7 @@ import { Form, Icon, Input, Button, notification } from 'antd';
 import styles from './index.less';
 import { connect } from 'dva';
 import { router } from 'umi'
+import Link from 'umi/link';
 const FormItem = Form.Item;
 const bg = require("../../assets/1.jpg");
 
@@ -52,6 +53,7 @@ function Login(props) {
                         <div className="mb10"></div>
                         <div className="text-r">
                             {/* <a to="/register" style={{ marginRight: '10px' }}>注册</a> */}
+                            <Link to="/register" style={{ marginRight: '10px' }}>注册</Link>
                             <Button type="primary" htmlType="submit" size="large" onClick={submit}>登录</Button>
                         </div>
                     </div>

@@ -6,21 +6,33 @@ export default {
     state: {
         userInfo: {},
     },
-    reducers: {
-
-    },
     effects: {
         *login({ payload: values }, {put, call, select}) {
             const result = yield call(userServices.login, values);
-            localStorage.setItem('token', result.token);
+            localStorage.setItem('token', result.data);
+            yield put({
+                type: 'getUserInfo'
+            })
+        },
+        *signup({ payload: values }, {put, call, select}) {
+            yield call(userServices.signup, values);
+        },
+        *getUserInfo({ }, {put, call, select}) {
             const userRes = yield call(userServices.getUserInfo);
             yield put({
                 type: 'saveUserInfo',
                 user: userRes.data
             })
         },
-        *getUserInfo() {
-
+    },
+    reducers: { 
+        saveUserInfo(state, { user }) {
+            console.log(state)
+            console.log(user)
+            return {
+                ...state,
+                userInfo: user
+            }
         },
     },
     subscriptions: {
