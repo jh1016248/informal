@@ -12,7 +12,8 @@ module.exports = {
                 code: -1,
                 message: '未注册'
             }
-        }
+        }  
+        
         if(user._id) {
             let userToken = {account: user.account, _id: user._id, avatar: user.avatar};
             const token = jsonwebtoken.sign(userToken, CONFIG.secret, { expiresIn:  '1h' });
