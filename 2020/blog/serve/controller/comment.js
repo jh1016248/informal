@@ -1,5 +1,5 @@
 const Comment = require('../models/comment')
-const Reply = require('../models/Reply')
+const Reply = require('../models/reply')
 const getUserAggregate = require('../dbHelper/aggregates').getUserAggregate;
 
 
