@@ -3,6 +3,7 @@ const Home = require('../controller/home')
 const user = require('./user')
 const article = require('./article')
 const comment = require('./comment')
+const wechat = require('./wechat')
 
 module.exports = (app) => {
   router.get('/', Home.index)
@@ -12,6 +13,7 @@ module.exports = (app) => {
     user.routes(), user.allowedMethods(),
     article.routes(), article.allowedMethods(),
     comment.routes(), comment.allowedMethods(),
+    wechat.routes(), wechat.allowedMethods(),
   )
   
   app
