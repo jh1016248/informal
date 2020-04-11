@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { Card } from 'antd';
 import { Avatar, Button } from 'antd';
 import { connect } from 'dva';
-import Categorys from '../pages/components/Categorys';
+import Categorys from '../pages/components/categorys';
 import { router } from 'umi';
 
 
