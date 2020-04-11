@@ -2,8 +2,10 @@ import styles from './index.less';
 import Link from 'umi/link';
 import CONFIG from '@/config';
 import { useEffect } from 'react';
+import { Card } from 'antd';
 import { Avatar, Button } from 'antd';
 import { connect } from 'dva';
+import Categorys from '../pages/components/Categorys';
 import { router } from 'umi';
 
 
@@ -12,9 +14,11 @@ function BasicLayout({ location, children, user, dispatch }) {
     if(location.pathname === '/login' || location.pathname === '/register') {
       return
     }
-    dispatch({
-      type: 'users/getUserInfo'
-    })
+    if(localStorage.token) {
+      dispatch({
+        type: 'users/getUserInfo'
+      })
+    }
   }, [])
 
   const handleLogout = () => {
@@ -31,25 +35,29 @@ function BasicLayout({ location, children, user, dispatch }) {
     </span>
   )
   const RenderLoginBox = () => (
-    <div className={styles.fr}>
+    <div className={styles.action}>
       <Link to="/login">登录</Link>
-      <Link to="/register">注册</Link>
+      {/* <Link to="/register">注册</Link> */}
     </div>
   )
   const normPage = () => {
     return (
-      <div className={styles.normal, 'min-scroll'}>
+      <div className={styles.normal}>
         <h1 className={styles.title}>Yay! Welcome to my blog!</h1>
         <div className={styles.header}>
-            <div className="wrap flex mt15">
+            <div className="wrap flex mt15 align-center">
                 <Link to="/" className="logo dib pt10"><img src={ require('../assets/logo.png') } alt="贴乎"/></Link>
-
                 {user._id ? <RenderUser />: <RenderLoginBox /> }
             </div>
         </div>
-        <div className="wrap">
+        <div className="wrap flex mt20">
           <div className="page-container">
             {children}
+          </div>
+          <div className="page-side">
+            <Card title="分类" bordered={false}>
+              <Categorys location={location}></Categorys>
+            </Card>
           </div>
         </div>
       </div>

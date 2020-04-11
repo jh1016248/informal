@@ -12,5 +12,12 @@ module.exports = {
       useCreateIndex: true
     }
   },
-  resolveUrls: ['/api/user/login','/api/user/signup']
+  whiteList: [
+    /^\/api\/user\/login/, 
+    /^\/api\/user\/signup/,
+    /^\/api\/article\/getArticles/,
+    /^\/api\/article\/getArticleDetail/,
+    /^\/api\/comment\/getComment/,
+    /^\/api\/category\/list/,
+  ]
 }

@@ -57,11 +57,7 @@ app.use(views(path.join(__dirname, 'view'), {
 onerror(app)
 
 app.use(jwtKoa({secret: CONFIG.secret}).unless({
-  path: [
-    /^\/api\/user\/login/, 
-    /^\/api\/user\/register/,
-    /^\/api\/user\/signup/,
-  ] //数组中的路径不需要通过jwt验证
+  path: CONFIG.whiteList, //数组中的路径不需要通过jwt验证
 }))
 
 app.use(resolveToken)

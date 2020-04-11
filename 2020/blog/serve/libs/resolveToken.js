@@ -6,12 +6,18 @@ const CONFIG = require('../config/default')
 module.exports = async (ctx, next) => {
   const token = ctx.headers.authorization
   const url = ctx.request.url;
-  if(CONFIG.resolveUrls.includes(url)) {
-    await next();
-    return 
+  let isWhiteRouter = false;
+  CONFIG.whiteList.forEach(item => {
+    if(item.test(url)) {
+      isWhiteRouter = true;
+    }
+  })
+  if(isWhiteRouter) {
+    return await next();
   }
+   
   if(!token) {
-    await next()
+    next()
   }
   else {
     try{

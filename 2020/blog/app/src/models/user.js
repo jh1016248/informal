@@ -9,10 +9,16 @@ export default {
     effects: {
         *login({ payload: values }, {put, call, select}) {
             const result = yield call(userServices.login, values);
-            localStorage.setItem('token', result.data);
-            yield put({
-                type: 'getUserInfo'
-            })
+            if(result.code !== 200) {
+                return result
+            }
+            else {
+                localStorage.setItem('token', result.data);
+                yield put({
+                    type: 'getUserInfo'
+                })
+                return result
+            }
         },
         *signup({ payload: values }, {put, call, select}) {
             yield call(userServices.signup, values);

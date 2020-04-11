@@ -14,10 +14,17 @@ function Login(props) {
                     type: 'users/login',
                     payload: values
                 }).then(res => {
-                    notification.success({
-                        message: '登录成功',
-                    });
-                    router.replace('/')
+                    if(res.code === 200) {
+                        notification.success({
+                            message: '登录成功',
+                        });
+                        router.replace('/')
+                    }
+                    else {
+                        notification.error({
+                            message: `登录失败,${res.message}`,
+                        });
+                    }
                 })
             }
         })
@@ -53,7 +60,7 @@ function Login(props) {
                         <div className="mb10"></div>
                         <div className="text-r">
                             {/* <a to="/register" style={{ marginRight: '10px' }}>注册</a> */}
-                            <Link to="/register" style={{ marginRight: '10px' }}>注册</Link>
+                            {/* <Link to="/register" style={{ marginRight: '10px' }}>注册</Link> */}
                             <Button type="primary" htmlType="submit" size="large" onClick={submit}>登录</Button>
                         </div>
                     </div>
