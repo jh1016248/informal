@@ -310,16 +310,19 @@ table {
   margin-right: 30px;
   background: #fff;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 .page-side {
   width: 25%;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 .mt15 {
   margin-top: 15px;
 }
 .mt20 {
   margin-top: 20px;
+}
+.pt10 {
+  padding-top: 10px;
 }

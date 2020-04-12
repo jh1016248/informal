@@ -13,6 +13,7 @@ export default {
         { path: '/editor', component: '../pages/editor/index.jsx' },
         // { path: '/register', component: '../pages/register/index.jsx' },
         { path: '/article', component: '../pages/article/index.jsx' },
+        { path: '/admin', component: '../pages/user/admin.jsx' },
       ]
     }
   ],

@@ -1,14 +1,13 @@
 import React, { useState, useRef } from 'react'
+import BraftEditor from 'braft-editor'
 import { Button, notification, message } from 'antd'
 import 'braft-editor/dist/index.css';
 import { router } from 'umi'
 import { publishArticle } from '@/services/article';
 
 export default () => {
-  const [editorValue, setEditorValue] = useState('');
+  const [editorValue, setEditorValue] = useState(BraftEditor.createEditorState(null));
   const titleRef = useRef();
-  const contentRef = useRef();
-  
   const controls = [
     'undo', 'redo',
     'font-size', 'line-height', 
@@ -19,7 +18,7 @@ export default () => {
 
   const handleSubmit = () => {
     const title = titleRef.current.value;
-    const content = contentRef.current.value; 
+    const content = editorValue.toHTML(); 
     const formData = {
       title,
       content,
@@ -38,7 +37,6 @@ export default () => {
       router.replace(`/article?id=${res.data}`)
     })
   }
-
   return (
     <div className="editor-page">
       <div className="editor-header">
@@ -51,7 +49,7 @@ export default () => {
         <div className="title-editor">
           <textarea className="editor-box" ref={titleRef} maxLength="50" placeholder="请输入标题"/>
         </div>
-        <textarea name="" id="" style={{ width: '100%' }} rows="10" ref={ contentRef }></textarea>
+        <BraftEditor placeholder="请输入" controls={controls} value={editorValue} onChange={setEditorValue}/>
       </div>
     </div>
   )

@@ -10,3 +10,6 @@ export const getArticleDetail = ({ id }) => {
 export const publishArticle = ({ content, title }) => {
     return request.post(`${CONFIG.url}/article/publishArticle`, { title, content })
 }
+export const deleteArticle = ({ id }) => {
+    return request.post(`${CONFIG.url}/article/delete`, { id })
+}

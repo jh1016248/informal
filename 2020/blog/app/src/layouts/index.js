@@ -22,7 +22,7 @@ function BasicLayout({ location, children, user, dispatch }) {
   }, [])
 
   const handleLogout = () => {
-    router.push('/login')
+    router.push('/admin')
   }
 
   const RenderUser = () => (
@@ -46,7 +46,7 @@ function BasicLayout({ location, children, user, dispatch }) {
         <h1 className={styles.title}>Yay! Welcome to my blog!</h1>
         <div className={styles.header}>
             <div className="wrap flex mt15 align-center">
-                <Link to="/" className="logo dib pt10"><img src={ require('../assets/logo.png') } alt="贴乎"/></Link>
+                <Link to="/" className="logo dib"><img src={ require('../assets/logo.png') } alt="贴乎"/></Link>
                 {user._id ? <RenderUser />: <RenderLoginBox /> }
             </div>
         </div>

@@ -10,3 +10,10 @@ mongodb
 
 keygen
 https://www.cnblogs.com/masting/p/11556372.html
+
+//查看node服务
+ps -ef |grep node
+//关闭服务
+kill 22222
+
+
