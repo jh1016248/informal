@@ -3,11 +3,14 @@ import { Button, notification, message } from 'antd'
 import 'braft-editor/dist/index.css';
 import { router } from 'umi'
 import { publishArticle } from '@/services/article';
+import { uploadFile } from '@/services/common'
+
 
 export default () => {
   const [editorValue, setEditorValue] = useState('');
   const titleRef = useRef();
   const contentRef = useRef();
+  const fileRef = useRef();
   
   const controls = [
     'undo', 'redo',
@@ -39,6 +42,14 @@ export default () => {
     })
   }
 
+  const handleUploadFile = () => {
+    const file = fileRef.current.files[0];
+    const formData = new FormData();
+    formData.append('file', file)
+    uploadFile('postThumb', formData).then(res => {
+      console.log(res)
+    })
+  }
   return (
     <div className="editor-page">
       <div className="editor-header">
@@ -52,7 +63,10 @@ export default () => {
           <textarea className="editor-box" ref={titleRef} maxLength="50" placeholder="请输入标题"/>
         </div>
         <textarea name="" id="" style={{ width: '100%' }} rows="10" ref={ contentRef }></textarea>
+
+        <input type="file" ref={fileRef} onChange={ handleUploadFile }/>
       </div>
+
     </div>
   )
 }
