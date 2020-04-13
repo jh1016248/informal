@@ -17,22 +17,14 @@ request.interceptors.response.use(response => {
         window.location.href = '/login';
         return 
     }
-    if(response.status !== 200) {
+    if(response.data.code === 0 && response.data.message) {
         notification.error({
-            message: response.message || '不知名错误',
+            message: '请求失败',
+            description: response.data.message
         });
     }
-    
     return response.data
 }, (e) => {
-
-    console.log(e)
-    return {
-        code: 0,
-        data: '',
-        message: '请重新登录'
-    }
-    return
     if(e.message === 'Request failed with status code 401') {        
         notification.error({
             message: '请重新登录',
