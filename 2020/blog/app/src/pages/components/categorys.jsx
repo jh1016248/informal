@@ -4,7 +4,7 @@ import { Tag, Popconfirm, notification } from 'antd';
 import { getCategoryList, deleteCategory } from '@/services/category';
 
 
-export default ({ pathname, handleCategory, canRemoveCategory = true, parant }) => {
+export default ({ pathname, handleCategory, canRemoveCategory = true }) => {
     const [list, setList] = useState([]);
     const [currentId, setCurrentId] = useState('');
 
@@ -15,11 +15,6 @@ export default ({ pathname, handleCategory, canRemoveCategory = true, parant }) 
         }
     }
     useEffect(() => {
-        if(parant) {
-            parant.getId = () => {
-              return currentId
-            }
-          }
         getList();
     }, [])
 
@@ -36,6 +31,7 @@ export default ({ pathname, handleCategory, canRemoveCategory = true, parant }) 
         }
     }
     const handleDelete = async (id) => {
+        console.log(id)
         if(!canRemoveCategory) {
             return
         }

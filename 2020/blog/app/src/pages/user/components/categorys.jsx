@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { getCategoryList, addCategory } from '@/services/category'
+import { getCategoryList, addCategory, deleteCategory } from '@/services/category'
 import { Tag,Popconfirm, notification, Button, Modal } from 'antd';
 
 
@@ -18,9 +18,15 @@ export default ({ pathname }) => {
         getList();
     }, [])
 
-    const handleClik = id => {
-        console.log(id)
-        return false
+    const handleConfirm = async id => {
+        const res = await deleteCategory(id)
+        if(res.code === 200) {
+            notification.success({
+                message: '成功',
+                description: '删除成功'
+              })
+              getList()
+        }
     }
 
     const handleOk = async() => {
@@ -43,7 +49,7 @@ export default ({ pathname }) => {
         list.map(item => (
             <Popconfirm
               title="Are you sure delete this task?"
-              onConfirm={() => handleClik(item._id)}
+              onConfirm={() => handleConfirm(item._id)}
               okText="Yes"
               key={item._id}
               cancelText="No"

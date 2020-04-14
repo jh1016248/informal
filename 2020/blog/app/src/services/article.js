@@ -7,8 +7,8 @@ export const getArticles = ({ size, page, categoryId }) => {
 export const getArticleDetail = ({ id }) => {
     return request.get(`${CONFIG.url}/article/detail`, { params: {id} })
 }
-export const publishArticle = ({ content, title }) => {
-    return request.post(`${CONFIG.url}/article/create`, { title, content })
+export const publishArticle = (data) => {
+    return request.post(`${CONFIG.url}/article/create`, data)
 }
 export const deleteArticle = ({ id }) => {
     return request.post(`${CONFIG.url}/article/delete`, { id })

@@ -54,11 +54,12 @@ function BasicLayout({ location, children, user, dispatch }) {
           <div className="page-container">
             {children}
           </div>
-          <div className="page-side">
+          { location.pathname === '/admin' ? null : 
+            <div className="page-side">
             <Card title="分类" bordered={false}>
               <Categorys location={location}></Categorys>
             </Card>
-          </div>
+          </div> }
         </div>
       </div>
     )

@@ -6,7 +6,7 @@ export const getCategoryList = () => {
 }
 
 export const deleteCategory = id => {
-    return request.post(`${CONFIG.url}/category/delte`, { id })
+    return request.post(`${CONFIG.url}/category/delete`, { id })
 }
 
 export const addCategory = name => {

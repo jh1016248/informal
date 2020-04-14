@@ -15,7 +15,7 @@ export default (props) => {
     
   useEffect(() => {
     getList();
-  }, [])
+  }, [categoryId])
 
   const RenderList = () => (articleList.map(item => (
       <article className="item" key={ item._id }>

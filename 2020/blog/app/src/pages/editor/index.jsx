@@ -3,7 +3,7 @@ import { Button, notification, message, Popover } from 'antd'
 import { router } from 'umi'
 import { publishArticle } from '@/services/article';
 import EditorContainer from './components/editor-container';
-import EditorContainer1 from './components/editor-container1';
+// import EditorContainer1 from './components/editor-container1';
 import Categorys from '../components/categorys';
 import { uploadFile } from '@/services/common'
 
@@ -11,24 +11,20 @@ import { uploadFile } from '@/services/common'
 export default (props) => {
   const [visibleImgPanel, setVisibleImgPanel] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
+  let categoryId = '';
   const fileRef = useRef();
   const titleRef = useRef();
-  const parant = {}
-
-  const [list, setList] = useState([]);
+  const editorRef = useRef();
 
   const handleSubmit = () => {
     const title = titleRef.current.value;
-    console.log(parant)
-    let content = parant.getContent(); 
+    let content = editorRef.current.getContent(); 
     const formData = {
       title,
       content,
       thumb: imgUrl,
-      categoryId: parant.getId()
+      categoryId
     }
-    console.log(formData)
-    return 
     if(title === '') {
       message.warning('请填写标题');
       titleRef.current.focus();
@@ -70,14 +66,15 @@ export default (props) => {
     )
   }
 
-  const handleCategory = (e) => {
-    console.log(e)
+  const handleCategory = (id) => {
+    // setCategoryId(id)
+    categoryId = id;
   }
 
   const RenderCategoryPanel = () => {
     return (
       <div>
-        <Categorys  parant={ parant } pathname="" canRemoveCategory={false} handleCategory={ handleCategory }></Categorys>
+        <Categorys pathname="" canRemoveCategory={false} handleCategory={ handleCategory }></Categorys>
         <Button onClick={ handleSubmit }>确认发布</Button>
       </div>
     )
@@ -108,7 +105,7 @@ export default (props) => {
         <div className="title-editor">
           <textarea className="editor-box" ref={titleRef} maxLength="50" placeholder="请输入标题"/>
         </div>
-        <EditorContainer1 parant={ parant }/>
+        <EditorContainer editorRef={ editorRef }/>
       </div>
     </div>
   )
