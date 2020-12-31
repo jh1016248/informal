@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                };
+            recalc();
+            win.addEventListener(resizeEvt, recalc, false);
+        })(document, window)
+    </script>
+</head>
+
+<body>
+    <div class="lottery-wrap">
+        <div class="lottery-box">
+            <div class="item" style="transform: rotate(0);">
+                <span>1</span>
+                <img src="./images/u1.png" alt="">
+            </div>
+            <div class="item" style="transform: rotate(45deg);">
+                <span>2</span>
+                <img src="./images/u2.png" alt="">
+            </div>
+            <div class="item" style="transform: rotate(90deg);">
+                <span>3</span>
+                <img src="./images/u3.png" alt="">
+            </div>
+            <div class="item" style="transform: rotate(135deg);">
+                <span>4</span>
+                <img src="./images/u4.png" alt="">
+            </div>
+            <div class="item" style="transform: rotate(180deg);">
+                <span>5</span>
+                <img src="./images/u5.png" alt="">
+            </div>
+            <div class="item" style="transform: rotate(225deg);">
+                <span>6</span>
+                <img src="./images/u6.png" alt="">
+            </div>
+            <div class="item" style="transform: rotate(270deg);">
+                <span>7</span>
+                <img src="./images/u7.png" alt="">
+            </div>
+            <div class="item" style="transform: rotate(315deg);">
+                <span>8</span>
+                <img src="./images/u8.png" alt="">
+            </div>
+        </div>
+        <div class="start-btn">开始</div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+    <script>
+            $(function () {
+                $(".start-btn").click(function () {
+                    var end = Math.floor(Math.random(8) * 10)
+                    var rotate = 3960 - end * 45;
+                    $(".lottery-box").css('transform', 'rotate('+ rotate +'deg)')
+                })
+            })
+
+    </script>
+</body>
+
+</html>
