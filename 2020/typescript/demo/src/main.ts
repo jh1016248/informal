@@ -5,3 +5,4 @@ console.log(joho)
 function sum(a: string, b: number): string {
     return a + b;
 }
+var name = 123;

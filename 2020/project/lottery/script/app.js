@@ -58,7 +58,7 @@ var vm = new Vue({
                 url: host + '/getprizelist',
                 type: 'post',
                 success: function (res) {
-                    that.prizeList = res.data;
+                    that.prizeList = res.data.concat(res.data).concat(res.data);
                 }
             })
         },  
@@ -86,6 +86,13 @@ var vm = new Vue({
                 success: function (res) {
                     that.loading = false;
                     if(res.code == 1) {
+                        var end = 0;
+                        for(var i = 0; i < that.prizeList.length; i++) {
+                            if(that.prizeList[i].batch_id === res.data.batch_id) {
+                                end = i;
+                            }
+                        }
+                        var rotate = 3960 - end * 60 + 30;
                         var userInfo = res.data.user_info
                         that.prizeInfo = res.data;
                         if(userInfo.user_name) {
@@ -95,16 +102,21 @@ var vm = new Vue({
                         else {
                             that.submitInfoed = false;
                         }
-                        that.showPrizeModal = true;
+                        if(that.prizeInfo.is_lottery == 0) {
+                            $(".lottery-box").css('transform', 'rotate(' + rotate + 'deg)')
+                            setTimeout(function () {
+                                that.showPrizeModal = true;
+                            }, 3300)
+                        }
+                        else {
+                            that.showPrizeModal = true;
+                        }
                     }
                 },
                 error: function () {
                     that.loading = false;
                 }
             })
-            // var end = Math.floor(Math.random(8) * 10)
-            // var rotate = 3960 - end * 45;
-            // $(".lottery-box").css('transform', 'rotate(' + rotate + 'deg)')
         },
         handleSubmit: function() {
             var username = this.sizeForm.user_name;
@@ -160,9 +172,10 @@ var vm = new Vue({
         },
     },
     mounted: function() {
+        localStorage.cardNo = '8uU0w'
         if(localStorage.cardNo !== '') {
             this.cardNo = localStorage.cardNo
-            this.showInputCardModal = false;
+            // this.showInputCardModal = false;
         }
         this.getLotteryList();
         this.getprizelist();

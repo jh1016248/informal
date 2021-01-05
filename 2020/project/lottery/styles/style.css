@@ -4,10 +4,35 @@ body{
 #app{
     width: 100%;
     min-height: 40rem;
-    /* background: url(../images/1/bg.jpg) no-repeat; */
+    background: url(../images/1/bg.jpg) no-repeat;
+    background-size: 100%;
+    padding-top: 11rem;
+    box-sizing: border-box;
+}
+.lottery-wrap{
+    position: relative;
+    width: 10.8rem;
+    height: 12.06rem;
+    background: url(../images/1/turntable/lottery-box.png) no-repeat;
+    background-size: 100%;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+}
+.pointer{
+    position: absolute;
+    left: 50%;
+    top: .32rem;
+    margin-left: -.79rem;
+    width: 1.58rem;
+    height: 2.19rem;
+    background: url(../images/1/turntable/pointer.png) no-repeat;
     background-size: 100%;
 }
 .start-btn{
+    position: absolute;
+    top: 4.4rem;
+    left: 50%;
+    margin-left: -1.62rem;
     width: 3.24rem;
     height: 3.24rem;
     background: url(../images/1/turntable/btn-start.png) no-repeat;
@@ -15,25 +40,33 @@ body{
 }
 .lottery-box{
     position: relative;
-    width: 4rem;
-    height: 4rem;
-    background: #ccc;
+    width: 8.45rem;
+    height: 8.45rem;
+    width: 10.8rem;
+    height: 12.06rem;
+    background: url(../images/1/turntable/lottery-box.png) no-repeat;
+    background-size: 100%;
     margin: 0 auto;
     border-radius: 50%;
     transition: all 3s ease-in-out;
+    /* transform: rotate(30deg); */
+    transform-origin: center;
 }
 .lottery-box .item{
     position: absolute;
-    width: 1.2rem;
+    width: 2.5rem;
     text-align: center;
-    height: 2rem;
-    top: 0;
+    height: 4.2rem;
+    top: 1.85rem;
     left: 50%;
-    margin-left: -.6rem;
+    margin-left: -1.25rem;
     text-align: center;
     transform-origin: bottom;
 }
 
+.lottery-box .item img{
+    width: .2rem
+}
 .lottery-box .item span{
     display: block;
     padding: .2rem;
@@ -75,9 +108,6 @@ body{
     overflow: hidden;
     padding: 0 .8rem;
 }
-.name-list .list .wrap{
-    /* transition: all .3s; */
-}
 .name-list .list .item{
     line-height: .8rem;
     display: flex;
@@ -100,6 +130,17 @@ body{
     position: relative;
     width: 50%;
     height: 100%;
+}
+.nav .item.active:before{
+    content: '';
+    width: .3rem;
+    height: .21rem;
+    background: url(../images/1/prize/nav-active.png) no-repeat;
+    background-size: 100%;
+    position: absolute;
+    bottom: -.21rem;
+    left: 50%;
+    margin-left: -.15rem;
 }
 .nav .item:after{
     content: '';
@@ -136,6 +177,7 @@ body{
     height: 14.12rem;
     padding: .6rem .35rem 0;
     box-sizing: border-box;
+    margin-bottom: .2rem;
     background: url(../images/1/prize/prize-bg.png) repeat;
     background-size: 100%;
 }
@@ -325,20 +367,21 @@ body{
     bottom: -1rem;
     left: 50%;
     margin-left: -.4rem;
+    top: auto;
 }
 .prize-modal-content img{
     margin: 0 auto;
     width: 3.75rem;
     height: 4.45rem;
     display: block;
-    margin: 0 auto 1.05rem;
+    margin: 0 auto .95rem;
 }
 .prize-modal-content p{
     font-size: .42rem;
     color: #fdfdfd;
     line-height: 1;
     text-align: center;
-    margin-bottom: .3rem
+    margin-bottom: .5rem
 }
 .prize-modal-content .btn-submit{
     width: 4.59rem;

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0; user-scalable=0">
     <title>元旦大转盘</title>
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./styles/swiper.min.css">
@@ -26,34 +26,15 @@
     <div id="app">
         <div class="lottery-wrap">
             <div class="lottery-box">
-                <div class="item" v-for="(item, index) in prizeList" :style="{'transform': 'rotate('+ index * 60 +'deg)'}">
-                    <span>{{item.prize_name}}</span>
+                <div class="item" v-for="(item, index) in prizeList" :style="{'transform': 'rotate('+ (index * 60 - 30) +'deg)'}">
+                    <span>{{item.prize_name + '--' + index }}</span>
                     <img :src="item.prize_url" alt="">
-                </div>
-                <!-- <div class="item" style="transform: rotate(60deg);">
-                    <span>2</span>
-                    <img src="./images/u2.png" alt="">
-                </div>
-                <div class="item" style="transform: rotate(120deg);">
-                    <span>3</span>
-                    <img src="./images/u3.png" alt="">
-                </div>
-                <div class="item" style="transform: rotate(180deg);">
-                    <span>4</span>
-                    <img src="./images/u4.png" alt="">
-                </div>
-                <div class="item" style="transform: rotate(240deg);">
-                    <span>5</span>
-                    <img src="./images/u5.png" alt="">
-                </div>
-                <div class="item" style="transform: rotate(300deg);">
-                    <span>6</span>
-                    <img src="./images/u6.png" alt="">
-                </div> -->
+                </div> 
             </div>
-            <div class="start-btn" @click="start"></div>
+            <div class="pointer"></div>
+            <div class="start-btn" @click="start"><div class="text"></div></div>
         </div>
-        <div class="lottery-num" @click="showPrizeModal = true">剩余抽奖次数：1</div>
+        <!-- <div class="lottery-num" @click="showPrizeModal = true">剩余抽奖次数：1</div> -->
         <div class="name-list">
             <div class="title">
                 <div class="text"></div>
@@ -125,6 +106,6 @@
     <script src="./script/zepto.min.js"></script>
     <script src="./script/vue.js"></script>
     <script src="./script/swiper.min.js"></script>
-    <script src="./script/app.js?v=2"></script>
+    <script src="./script/app.js"></script>
 </body>
 </html>
