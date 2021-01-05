@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
+    <title>元旦大转盘</title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/swiper.min.css">
+    <link rel="stylesheet" href="./styles/style.css">
     <script>
         (function (doc, win) {
             var docEl = doc.documentElement,
                 resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
                 recalc = function () {
                     var clientWidth = docEl.clientWidth;
-                    docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                    docEl.style.fontSize = 100 * (clientWidth / 1080) + 'px';
                 };
             recalc();
             win.addEventListener(resizeEvt, recalc, false);
@@ -22,55 +23,108 @@
 </head>
 
 <body>
-    <div class="lottery-wrap">
-        <div class="lottery-box">
-            <div class="item" style="transform: rotate(0);">
-                <span>1</span>
-                <img src="./images/u1.png" alt="">
+    <div id="app">
+        <div class="lottery-wrap">
+            <div class="lottery-box">
+                <div class="item" v-for="(item, index) in prizeList" :style="{'transform': 'rotate('+ index * 60 +'deg)'}">
+                    <span>{{item.prize_name}}</span>
+                    <img :src="item.prize_url" alt="">
+                </div>
+                <!-- <div class="item" style="transform: rotate(60deg);">
+                    <span>2</span>
+                    <img src="./images/u2.png" alt="">
+                </div>
+                <div class="item" style="transform: rotate(120deg);">
+                    <span>3</span>
+                    <img src="./images/u3.png" alt="">
+                </div>
+                <div class="item" style="transform: rotate(180deg);">
+                    <span>4</span>
+                    <img src="./images/u4.png" alt="">
+                </div>
+                <div class="item" style="transform: rotate(240deg);">
+                    <span>5</span>
+                    <img src="./images/u5.png" alt="">
+                </div>
+                <div class="item" style="transform: rotate(300deg);">
+                    <span>6</span>
+                    <img src="./images/u6.png" alt="">
+                </div> -->
             </div>
-            <div class="item" style="transform: rotate(45deg);">
-                <span>2</span>
-                <img src="./images/u2.png" alt="">
+            <div class="start-btn" @click="start"></div>
+        </div>
+        <div class="lottery-num" @click="showPrizeModal = true">剩余抽奖次数：1</div>
+        <div class="name-list">
+            <div class="title">
+                <div class="text"></div>
             </div>
-            <div class="item" style="transform: rotate(90deg);">
-                <span>3</span>
-                <img src="./images/u3.png" alt="">
-            </div>
-            <div class="item" style="transform: rotate(135deg);">
-                <span>4</span>
-                <img src="./images/u4.png" alt="">
-            </div>
-            <div class="item" style="transform: rotate(180deg);">
-                <span>5</span>
-                <img src="./images/u5.png" alt="">
-            </div>
-            <div class="item" style="transform: rotate(225deg);">
-                <span>6</span>
-                <img src="./images/u6.png" alt="">
-            </div>
-            <div class="item" style="transform: rotate(270deg);">
-                <span>7</span>
-                <img src="./images/u7.png" alt="">
-            </div>
-            <div class="item" style="transform: rotate(315deg);">
-                <span>8</span>
-                <img src="./images/u8.png" alt="">
+            <div class="list">
+                <div class="wrap" :style="listStyle">
+                    <div class="item" v-for="item in nameList">
+                        <span>{{item.mobile}}</span>
+                        <span>{{item.prize_name}}</span>
+                    </div>
+                    <div class="item" v-for="item in nameList">
+                        <span>{{item.mobile}}</span>
+                        <span>{{item.prize_name}}</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="start-btn">开始</div>
+        <div class="nav">
+            <div class="item" v-for="item in 2" :class="(item == navIndex ? 'active ' : '') + 'item' + item" @click="handleNav(item)">
+            </div>
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="prize-box">
+                        <div class="item" v-for="item in 9"><img :src="'./images/1/prize/' + item + '.png'" alt=""></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="rule-box">
+                        <div class="rule-text"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" :class="{ active: showInputCardModal}">
+            <div class="modal-mask" @click="showInputCardModal = false"></div>
+            <div class="modal-container input-card-content">
+                <div class="close" @click="showInputCardModal = false"></div>
+                <div class="title"></div>
+                <input type="text" class="text-input card-input" v-model="cardNo">
+                <div class="btn-submit" @click="validCard"></div>
+            </div>
+        </div>
+        <div class="modal" :class="{ active: showPrizeModal}">
+            <div class="modal-mask" @click="showPrizeModal = false"></div>
+            <div class="modal-container prize-modal-content">
+                <div class="close" @click="showPrizeModal = false"></div>
+                <img src="./images/1/prize/1.png" alt="">
+                <p>恭喜！抽中“高效综合仪”一台！</p>
+                <input type="text" class="text-input card-input" placeholder="姓名" :readonly="submitInfoed" v-model="sizeForm.user_name">
+                <input type="text" class="text-input card-input" placeholder="电话" :readonly="submitInfoed" v-model="sizeForm.mobile">
+                <input type="text" class="text-input card-input" placeholder="地址" :readonly="submitInfoed" v-model="sizeForm.address">
+                <div class="btn-submit" v-if="!submitInfoed" @click="handleSubmit"><div class="text"></div></div>
+            </div>
+        </div>
+        <div class="modal" :class="{ active: showSuccessModal}">
+            <div class="modal-mask" @click="showSuccessModal = false"></div>
+            <div class="modal-container input-card-content success-modal-content">
+                <div class="close" @click="showSuccessModal = false"></div>
+                <div class="icon-success"></div>
+                <div class="title"></div>
+                <p>如有疑问请联系销售人员</p>
+            </div>
+        </div>
     </div>
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
-    <script>
-            $(function () {
-                $(".start-btn").click(function () {
-                    var end = Math.floor(Math.random(8) * 10)
-                    var rotate = 3960 - end * 45;
-                    $(".lottery-box").css('transform', 'rotate('+ rotate +'deg)')
-                })
-            })
-
-    </script>
+    <script src="./script/zepto.min.js"></script>
+    <script src="./script/vue.js"></script>
+    <script src="./script/swiper.min.js"></script>
+    <script src="./script/app.js?v=2"></script>
 </body>
-
 </html>
