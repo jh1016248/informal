@@ -1,16 +1,18 @@
-body{
-    -webkit-text-size-adjust: 100%;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+body {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     font-size: 14px;
 }
-#app{
+
+#app {
     width: 100%;
-    min-height: 40rem;
     background: url(../images/1/bg.jpg) no-repeat;
     background-size: 100%;
     padding-top: 11rem;
     box-sizing: border-box;
 }
-.lottery-wrap{
+
+.lottery-wrap {
     position: relative;
     width: 10.8rem;
     height: 12.06rem;
@@ -19,17 +21,19 @@ body{
     margin-bottom: 2rem;
     box-sizing: border-box;
 }
-.pointer{
+
+.pointer {
     position: absolute;
     left: 50%;
     top: .32rem;
-    margin-left: -.79rem;
+    margin-left: -.75rem;
     width: 1.58rem;
     height: 2.19rem;
     background: url(../images/1/turntable/pointer.png) no-repeat;
     background-size: 100%;
 }
-.start-btn{
+
+.start-btn {
     position: absolute;
     top: 4.4rem;
     left: 50%;
@@ -39,7 +43,8 @@ body{
     background: url(../images/1/turntable/btn-start.png) no-repeat;
     background-size: 100%;
 }
-.lottery-box{
+
+.lottery-box {
     position: relative;
     width: 8.45rem;
     height: 8.45rem;
@@ -49,11 +54,11 @@ body{
     background-size: 100%;
     margin: 0 auto;
     border-radius: 50%;
-    transition: all 3s ease-in-out;
-    /* transform: rotate(30deg); */
+    transition: all 5s ease-in-out;
     transform-origin: center;
 }
-.lottery-box .item{
+
+.lottery-box .item {
     position: absolute;
     width: 2.5rem;
     text-align: center;
@@ -65,15 +70,16 @@ body{
     transform-origin: bottom;
 }
 
-.lottery-box .item img{
-    width: .2rem
+.lottery-box .item img {
+    width: 100%;
 }
-.lottery-box .item span{
+
+.lottery-box .item span {
     display: block;
     padding: .2rem;
 }
 
-.name-list{
+.name-list {
     width: 10.58rem;
     height: 4.69rem;
     background: url(../images/1/winner/name-list-bg.png) no-repeat;
@@ -84,7 +90,8 @@ body{
     box-sizing: border-box;
     margin-bottom: .7rem;
 }
-.name-list .title{
+
+.name-list .title {
     position: absolute;
     left: 50%;
     margin-left: -2.92rem;
@@ -94,7 +101,8 @@ body{
     background: url(../images/1/winner/name-list-title.png) no-repeat;
     background-size: 100%;
 }
-.name-list .title .text{
+
+.name-list .title .text {
     position: absolute;
     left: 50%;
     margin-left: -1.31rem;
@@ -104,22 +112,25 @@ body{
     background: url(../images/1/winner/name-list-title-text.png) no-repeat;
     background-size: 100%;
 }
-.name-list .list{
+
+.name-list .list {
     height: 2.4rem;
     overflow: hidden;
     padding: 0 .8rem;
 }
-.name-list .list .item{
+
+.name-list .list .item {
     line-height: .8rem;
     display: flex;
     justify-content: space-between;
 }
 
-.name-list .list .item span{
+.name-list .list .item span {
     font-size: .46rem;
     color: #483000;
 }
-.nav{
+
+.nav {
     display: flex;
     width: 10.07rem;
     margin: 0 auto .4rem;
@@ -127,12 +138,14 @@ body{
     background: url(../images/1/prize/nav-bg.png) no-repeat;
     background-size: 100%;
 }
-.nav .item{
+
+.nav .item {
     position: relative;
     width: 50%;
     height: 100%;
 }
-.nav .item.active:before{
+
+.nav .item.active:before {
     content: '';
     width: .3rem;
     height: .21rem;
@@ -143,7 +156,8 @@ body{
     left: 50%;
     margin-left: -.15rem;
 }
-.nav .item:after{
+
+.nav .item:after {
     content: '';
     width: 1.3rem;
     height: .31rem;
@@ -153,25 +167,32 @@ body{
     margin-left: -.65rem;
     background-size: 100%;
 }
-.nav .item.item1:after{
+
+.nav .item.item1:after {
     background-image: url(../images/1/prize/text-prize.png);
 }
-.nav .item.item1.active:after{
+
+.nav .item.item1.active:after {
     background-image: url(../images/1/prize/text-prize-active.png);
 }
-.nav .item.item2:after{
+
+.nav .item.item2:after {
     background-image: url(../images/1/prize/text-rule.png);
 }
-.nav .item.item2.active:after{
+
+.nav .item.item2.active:after {
     background-image: url(../images/1/prize/text-rule-active.png);
 }
-.nav .item.item3:after{
+
+.nav .item.item3:after {
     background-image: url(../images/1/prize/text-winning-prize.png);
 }
-.nav .item.item3.active:after{
+
+.nav .item.item3.active:after {
     background-image: url(../images/1/prize/text-winning-prize-active.png);
 }
-.prize-box{
+
+.prize-box {
     display: flex;
     flex-wrap: wrap;
     width: 10.06rem;
@@ -182,61 +203,67 @@ body{
     background: url(../images/1/prize/prize-bg.png) repeat;
     background-size: 100%;
 }
-.prize-box .item{
+
+.prize-box .item {
     width: 2.92rem;
     height: 4.05rem;
     margin: 0 .1rem .35rem;
 }
-.prize-box .item img{
+
+.prize-box .item img {
     width: 100%;
     border-radius: .04rem;
     height: 100%;
 }
-.rule-box{
+
+.rule-box {
     width: 10.06rem;
     height: 7.17rem;
     padding-top: .75rem;
+    margin-bottom: .2rem;
     box-sizing: border-box;
     background: url(../images/2/rule-bg.png) no-repeat;
     background-size: 100%;
 }
-.rule-text{
+
+.rule-text {
     width: 9.21rem;
     height: 5.63rem;
     background: url(../images/2/text.png) no-repeat;
     background-size: 100%;
     margin: 0 auto 0;
 }
+
 .swiper-container {
     width: 10.06rem;
-}  
+}
 
-.modal{
+.modal {
     position: fixed;
     width: 100%;
     height: 100%;
     left: 0;
     top: 0;
     visibility: hidden;
-    z-index   : 11111;
+    z-index: 1;
 }
 
 .modal-mask {
-    position  : absolute;
-    width     : 100%;
-    height    : 100%;
-    left      : 0;
-    top       : 0;
-    opacity   : 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
     background: rgba(0, 0, 0, 0.95);
-    z-index   : 2;
+    z-index: 2;
     transition: all 0.3s;
 }
 
 .modal-container {
     z-index: 3;
-    opacity   : 0;
-    position  : absolute;
+    opacity: 0;
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -70%);
@@ -246,6 +273,7 @@ body{
     visibility: visible;
     pointer-events: all;
 }
+
 .modal.active .modal-mask {
     opacity: 1;
 }
@@ -254,26 +282,29 @@ body{
     animation: container-show .3s forwards;
 }
 
-@keyframes container-show{
-    0%{
+@keyframes container-show {
+    0% {
         transform: translate(-50%, -60%);
         opacity: 0;
     }
-    50%{
+
+    50% {
         transform: translate(-50%, -48%);
         opacity: 1;
     }
-    80%{
+
+    80% {
         transform: translate(-50%, -50%);
         opacity: 1;
     }
-    100%{
+
+    100% {
         transform: translate(-50%, -50%);
         opacity: 1;
     }
 }
 
-.modal-container .close{
+.modal-container .close {
     width: .5rem;
     height: .5rem;
     background: url(../images/4/close.png) center center no-repeat;
@@ -283,7 +314,7 @@ body{
     top: .2rem;
 }
 
-.text-input{
+.text-input {
     width: 6.75rem;
     display: block;
     height: .95rem;
@@ -296,7 +327,7 @@ body{
     box-sizing: border-box;
 }
 
-.input-card-content{
+.input-card-content {
     width: 8.46rem;
     height: 5rem;
     background: #fff;
@@ -304,17 +335,20 @@ body{
     padding-top: 1.08rem;
     box-sizing: border-box;
 }
-.input-card-content .title{
+
+.input-card-content .title {
     width: 2.22rem;
     height: .37rem;
     background: url(../images/4/input-card-title.png) no-repeat;
     background-size: 100%;
     margin: 0 auto .4rem;
 }
-.card-input{
+
+.card-input {
     margin: 0 auto .3rem;
 }
-.btn-submit{
+
+.btn-submit {
     width: 6.75rem;
     display: block;
     height: .95rem;
@@ -326,33 +360,35 @@ body{
     margin: 0 auto .3rem;
 }
 
-.success-modal-content{
+.success-modal-content {
     padding-top: 1.2rem;
 }
 
-.success-modal-content .icon-success{
+.success-modal-content .icon-success {
     width: 1.29rem;
     height: 1.29rem;
     background: url(../images/6/icon-success.png) no-repeat;
-    background-size:100%;
+    background-size: 100%;
     margin: 0 auto .45rem;
 }
-.success-modal-content .title{
+
+.success-modal-content .title {
     width: 2.1rem;
     height: .5rem;
     background: url(../images/6/text-submit-success.png) no-repeat;
-    background-size:100%;
+    background-size: 100%;
     margin: 0 auto .24rem;
 }
 
-.success-modal-content p{
+.success-modal-content p {
     font-size: .34rem;
     color: #7f7f7f;
     text-align: center;
-    line-height: 1;;
+    line-height: 1;
+    ;
 }
 
-.prize-modal-content{
+.prize-modal-content {
     width: 8.15rem;
     height: 14.52rem;
     background: url(../images/5/bg.png) no-repeat;
@@ -360,7 +396,8 @@ body{
     box-sizing: border-box;
     padding-top: 2.7rem;
 }
-.prize-modal-content .close{
+
+.prize-modal-content .close {
     width: .8rem;
     height: .8rem;
     background-image: url(../images/5/close.png);
@@ -370,21 +407,23 @@ body{
     margin-left: -.4rem;
     top: auto;
 }
-.prize-modal-content img{
+
+.prize-modal-content img {
     margin: 0 auto;
-    width: 3.75rem;
     height: 4.45rem;
     display: block;
     margin: 0 auto .95rem;
 }
-.prize-modal-content p{
+
+.prize-modal-content p {
     font-size: .42rem;
     color: #fdfdfd;
     line-height: 1;
     text-align: center;
     margin-bottom: .5rem
 }
-.prize-modal-content .btn-submit{
+
+.prize-modal-content .btn-submit {
     width: 4.59rem;
     height: .79rem;
     background: url(../images/5/btn-confirm.png) no-repeat;
@@ -393,10 +432,55 @@ body{
     padding-top: .2rem;
     box-sizing: border-box;
 }
-.prize-modal-content .btn-submit .text{
+
+.prize-modal-content .btn-submit .text {
     width: 2.19rem;
     height: .4rem;
     background: url(../images/5/text-confirm.png) no-repeat;
     margin: 0 auto;
     background-size: 100%;
+}
+
+.toast {
+    visibility: hidden;
+    z-index: 2;
+}
+
+.toast.active {
+    visibility: visible;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.toast .content {
+    z-index: 11;
+    ;
+    position: fixed;
+    padding: .3rem .55rem;
+    border-radius: .06rem;
+    color: #fff;
+    background: rgba(0, 0, 0, .5);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    transition: all .3s;
+    font-size: 16px;
+    ;
+    opacity: 0;
+}
+
+.toast.active .content {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+
+.swiper-slide {
+    height: 0px;
+}
+
+.swiper-slide-active {
+    height: auto !important;
+    /*这个根据自身的情况，可加可不加*/
 }

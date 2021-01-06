@@ -1,28 +1,11 @@
 var fs = parseFloat(document.documentElement.style.fontSize)
 var host = 'https://mooning.mooning.vip/api/activity';
-// ejlAS
-// 8uU0w
-// fPGTS
-// qwePd
-// 8vE0w
-// rrtaL
-// DDY53
-// 9ughu
-// %2BAGhw
-// vs7Rk
-// vs7Vk
-// ROJK0
-// %2B-Juw
-// mpqrV
-// ugnnh
-// dZpmM
-// DC7W3
 var animIndex = 0;
 var vm = new Vue({
     el: '#app',
     data: {
         navIndex: 1,
-        showInputCardModal: true,
+        showInputCardModal: false,
         showSuccessModal: false,
         showPrizeModal: false,
         prizeList: [],
@@ -37,8 +20,26 @@ var vm = new Vue({
         },
         submitInfoed: false,
         prizeInfo: {},
+        msg: '',
+        isShowMsg: false,
+        needStart:false,
+    },
+    computed: {
+        prizeName: function () {
+            var id = this.prizeInfo.batch_id;
+            if(!id) return '';
+            return this.prizeInfo.prize_name;
+        }
     },
     methods: {
+        showMsg: function (msg) {
+            this.msg = msg;
+            var that = this;
+            that.isShowMsg =  true
+            setTimeout(function () {
+                that.isShowMsg = false;
+            }, 2000)
+        },
         getLotteryList: function () {
             var that = this;
             $.ajax({
@@ -58,24 +59,28 @@ var vm = new Vue({
                 url: host + '/getprizelist',
                 type: 'post',
                 success: function (res) {
-                    that.prizeList = res.data.concat(res.data).concat(res.data);
+                    that.prizeList = res.data
                 }
             })
         },  
         validCard: function() {
             if(this.cardNo === '') {
+                this.showMsg('请输入抽奖验证码')
+                this.$refs.cardNoInput.focus();
                 return
             }
+            var that = this;
             localStorage.cardNo = this.cardNo
             this.showInputCardModal = false;
+            setTimeout(function () {
+                that.lottery();
+            }, 200)
         },
         start: function () {
             if(this.loading) return 
-            if(!this.cardNo) {
-                this.showInputCardModal = true;
-                return 
-            }
-            this.loading = true;
+            this.showInputCardModal = true;
+        },
+        lottery: function () {
             var that = this;
             $.ajax({
                 url: host + '/adduserlottery',
@@ -106,11 +111,17 @@ var vm = new Vue({
                             $(".lottery-box").css('transform', 'rotate(' + rotate + 'deg)')
                             setTimeout(function () {
                                 that.showPrizeModal = true;
-                            }, 3300)
+                            }, 5300)
                         }
                         else {
                             that.showPrizeModal = true;
                         }
+                    }
+                    else {
+                        that.showMsg(res.msg)
+                        setTimeout(function () {
+                            that.showInputCardModal = true;
+                        })
                     }
                 },
                 error: function () {
@@ -122,15 +133,27 @@ var vm = new Vue({
             var username = this.sizeForm.user_name;
             var address = this.sizeForm.address;
             var mobile = this.sizeForm.mobile;
-            if(mobile !='' && address != '' && username != '') {
-                this.submit()
+            if(username == '') {
+                this.showMsg('请输入名称');
+                this.$refs.usernameInput.focus();
+                return 
             }
-            else {
-                // 
+            if(mobile == '') {
+                this.showMsg('请输入电话');
+                this.$refs.mobileInput.focus();
+                return 
             }
+            if(address == '') {
+                this.showMsg('请输入地址');
+                this.$refs.addressInput.focus();
+                return 
+            }
+            this.submit()
         },
         submit: function() {
             var that = this;
+            if(this.loading) return 
+            this.loading = true
             $.ajax({
                 url: host + '/adduseraddressandmobile',
                 type: 'post',
@@ -141,6 +164,7 @@ var vm = new Vue({
                     user_name: this.sizeForm.user_name,
                 },
                 success: function (res){
+                    that.loading = false;
                     if(res.code == 1) {
                         that.showPrizeModal = false;
                         setTimeout(function () {
@@ -148,6 +172,9 @@ var vm = new Vue({
                         }, 300)
                     }
                 },
+                error: function () {
+                    that.loading = false;
+                }
             })
         },
         handleNav: function (index) {
@@ -172,15 +199,12 @@ var vm = new Vue({
         },
     },
     mounted: function() {
-        localStorage.cardNo = '8uU0w'
         if(localStorage.cardNo !== '') {
             this.cardNo = localStorage.cardNo
-            // this.showInputCardModal = false;
         }
         this.getLotteryList();
         this.getprizelist();
         var that = this;
-        this.startTimer();
         this.$nextTick(function () {
             that.mySwiper = new Swiper('.swiper-container', {
                 loop: true,

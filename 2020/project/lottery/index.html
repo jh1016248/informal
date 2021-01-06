@@ -27,14 +27,13 @@
         <div class="lottery-wrap">
             <div class="lottery-box">
                 <div class="item" v-for="(item, index) in prizeList" :style="{'transform': 'rotate('+ (index * 60 - 30) +'deg)'}">
-                    <span>{{item.prize_name + '--' + index }}</span>
-                    <img :src="item.prize_url" alt="">
+                    <img :src="item.prize_small_url" alt="">
+                    <!-- <img :src="'./images/1/test/'+ (index + 1) +'.png'" alt=""> -->
                 </div> 
             </div>
             <div class="pointer"></div>
             <div class="start-btn" @click="start"><div class="text"></div></div>
         </div>
-        <!-- <div class="lottery-num" @click="showPrizeModal = true">剩余抽奖次数：1</div> -->
         <div class="name-list">
             <div class="title">
                 <div class="text"></div>
@@ -76,7 +75,7 @@
             <div class="modal-container input-card-content">
                 <div class="close" @click="showInputCardModal = false"></div>
                 <div class="title"></div>
-                <input type="text" class="text-input card-input" v-model="cardNo">
+                <input type="text" class="text-input card-input" placeholder="请输入抽奖验证码" ref="cardNoInput" v-model="cardNo">
                 <div class="btn-submit" @click="validCard"></div>
             </div>
         </div>
@@ -84,11 +83,11 @@
             <div class="modal-mask" @click="showPrizeModal = false"></div>
             <div class="modal-container prize-modal-content">
                 <div class="close" @click="showPrizeModal = false"></div>
-                <img src="./images/1/prize/1.png" alt="">
-                <p>恭喜！抽中“高效综合仪”一台！</p>
-                <input type="text" class="text-input card-input" placeholder="姓名" :readonly="submitInfoed" v-model="sizeForm.user_name">
-                <input type="text" class="text-input card-input" placeholder="电话" :readonly="submitInfoed" v-model="sizeForm.mobile">
-                <input type="text" class="text-input card-input" placeholder="地址" :readonly="submitInfoed" v-model="sizeForm.address">
+                <img :src="prizeInfo.prize_url" alt="">
+                <p>恭喜！抽中“{{prizeName}}”</p>
+                <input type="text" class="text-input card-input" placeholder="请输入姓名" ref="usernameInput" :readonly="submitInfoed" v-model="sizeForm.user_name">
+                <input type="text" class="text-input card-input" placeholder="请输入电话" ref="mobileInput" :readonly="submitInfoed" v-model="sizeForm.mobile">
+                <input type="text" class="text-input card-input" placeholder="请输入地址" ref="addressInput" :readonly="submitInfoed" v-model="sizeForm.address">
                 <div class="btn-submit" v-if="!submitInfoed" @click="handleSubmit"><div class="text"></div></div>
             </div>
         </div>
@@ -101,11 +100,15 @@
                 <p>如有疑问请联系销售人员</p>
             </div>
         </div>
+
+        <div class="toast" :class="{ active: isShowMsg}">
+            <div class="content">{{msg}}</div>
+        </div>
     </div>
 
     <script src="./script/zepto.min.js"></script>
     <script src="./script/vue.js"></script>
     <script src="./script/swiper.min.js"></script>
-    <script src="./script/app.js"></script>
+    <script src="./script/app.js?v=1"></script>
 </body>
 </html>
