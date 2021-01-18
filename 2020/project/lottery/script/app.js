@@ -1,5 +1,12 @@
 var fs = parseFloat(document.documentElement.style.fontSize)
 var host = 'https://mooning.mooning.vip/api/activity';
+
+$.ajax({
+    url: 'http://auto-order-test.gzzyad.com/api/v1/order/getbuyerorderlist',
+    success: function () {
+        
+    },
+})
 var animIndex = 0;
 var vm = new Vue({
     el: '#app',
@@ -97,7 +104,7 @@ var vm = new Vue({
                                 end = i;
                             }
                         }
-                        var rotate = 3960 - end * 60 + 30;
+                        var rotate = 3960 - end * 40;
                         var userInfo = res.data.user_info
                         that.prizeInfo = res.data;
                         if(userInfo.user_name) {

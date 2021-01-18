@@ -26,7 +26,7 @@
     <div id="app">
         <div class="lottery-wrap">
             <div class="lottery-box">
-                <div class="item" v-for="(item, index) in prizeList" :style="{'transform': 'rotate('+ (index * 40) +'deg)'}">
+                <div class="item" v-for="(item, index) in prizeList" :style="{'transform': 'rotate('+ (index * 60 - 30) +'deg)'}">
                     <img :src="item.prize_small_url" alt="">
                     <!-- <img :src="'./images/1/test/'+ (index + 1) +'.png'" alt=""> -->
                 </div> 
@@ -109,6 +109,12 @@
     <script src="./script/zepto.min.js"></script>
     <script src="./script/vue.js"></script>
     <script src="./script/swiper.min.js"></script>
-    <script src="./script/app.js"></script>
+    <script src="./script/app.js?v=1"></script>
+    <script>
+        $.ajax({
+            url: 'https://api.it120.cc/4c2c2191d43554b0f3d611f2c19a0736/shop/goods/list',
+            type: 'post'
+        })
+    </script>
 </body>
 </html>

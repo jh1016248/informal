@@ -9,6 +9,7 @@ body {
     background: url(../images/1/bg.jpg) no-repeat;
     background-size: 100%;
     padding-top: 11rem;
+    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -37,7 +38,7 @@ body {
     position: absolute;
     top: 4.4rem;
     left: 50%;
-    margin-left: -1.62rem;
+    margin-left: -1.6rem;
     width: 3.24rem;
     height: 3.24rem;
     background: url(../images/1/turntable/btn-start.png) no-repeat;
@@ -46,8 +47,6 @@ body {
 
 .lottery-box {
     position: relative;
-    width: 8.45rem;
-    height: 8.45rem;
     width: 10.8rem;
     height: 12.06rem;
     background: url(../images/1/turntable/lottery-box.png) no-repeat;
