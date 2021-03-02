@@ -1,0 +1,47 @@
+<view class="app">
+    <view class="header">
+        <button open-type="getPhoneNumber" getphonenumber="getPhoneNumber" class="login-btn">{{message['注册登录']}}</button>
+        <view class="avatar-wrap" wx:if="userInfo.phoneNumber !== ''">
+            <view class="avatar-box">
+                <open-data type="userAvatarUrl" class="avatar"></open-data>
+            </view>
+        </view>
+    </view>
+    <view class="container">
+        <view class="box box1">
+            <image class="banner" wx:if="lang == 'zh'" src="../../images/index/banner.png"></image>
+            <view class="box-main">
+                <view class="h3">{{message.activityTitle}}</view>
+                <view class="p">{{message.activityP1}}</view>
+                <video src="../../images/video.mp4"></video>
+            </view>
+        </view>
+        <view class="box box-strategy">
+            <view class="strategy-header">
+                <image src="../../images/index/index-title-bg.png" mode="scaleToFill" />
+                <text>{{message.strategyTitle}}</text>
+            </view>
+            <view class="box-main">
+                <image class="machine-img" src="../../images/index/machine.png" mode="scaleToFill" />
+                <view class="list">
+                    <view class="line"></view>
+                    <view class="item" wx:for="strategyList" key="{{index}}">
+                        <view class="number">
+                            <image src="{{item.number}}" />
+                        </view>
+                        <view class="name">
+                            <image wx:if="lang == 'zh'" src="{{item.title}}" />
+                        </view>
+                        <view class="p">{{message[item.text]}}</view>
+                    </view>
+                    <view class="btn" :class="{disable: isExist}" bindtap="handleOrderNow">
+                        <image class="btn-bg" src="../../images/index/btn-bg@2x.png" />
+                        <image class="btn-text" wx:if="lang == 'zh' && !isExist"
+                            src="../../images/index/text-lijixiadan.png" />
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="my-order" wx:if="lang == 'zh'" bindtap="toOrder()">我的<br />订单</view>
+</view>
