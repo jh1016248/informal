@@ -1,25 +1,57 @@
-const UserModel = require('../models/user')
 const CONFIG = require('../config/default')
-const crypto = require('crypto');
 const jsonwebtoken = require('jsonwebtoken');
 
 module.exports = {
     async login(ctx, next) {
         const { account, password } = ctx.request.body;
-        const user = await UserModel.findOne({ account })
-        if(user === null) {
-            return ctx.body = {
-                code: -1,
-                message: '未注册'
-            }
-        }  
-        
-        if(user._id) {
-            let userToken = {account: user.account, _id: user._id, avatar: user.avatar};
+        const sql = `SELECT * FROM users WHERE account="${account}" AND password="${password}"`;
+        const res = await ctx.utils.mysql(sql)
+        const user = res[0]
+        if(user) {
+            const userToken = {account: user.account, name: user.name, id: user.id};
             const token = jsonwebtoken.sign(userToken, CONFIG.secret, { expiresIn:  '1h' });
             ctx.body = {
                 code: 200,
-                data: "Bearer " + token
+                data: {
+                    token: token
+                },
+            }
+        }
+        else {
+            ctx.body = {
+                code: 0,
+                data: {},
+                message: '账号或者密码错误，请重新登录'
+            }
+        }
+    },
+    async register(ctx, next) {
+        const { account, password } = ctx.request.body;
+        const uid = ctx.utils.uuid.v1()
+        const query = `SELECT * FROM users WHERE account="${account}"`;
+        const haveUser = await ctx.utils.mysql(query);
+        if(haveUser.length) {
+            ctx.body = {
+                code: 0,
+                message: '该账号已注册，请登录',
+                data: {},
+            }
+            return 
+        }
+        const sql = `INSERT INTO users (id, name, account, password) VALUES ("${uid}", "${account}", "${account}", "${password}")`;
+        const res = await ctx.utils.mysql(sql)
+        if(res.affectedRows >= 1) {
+            ctx.body = {
+                code: 200, 
+                data: {},
+                message: '注册成功！'
+            }
+        }
+        else {
+            ctx.body = {
+                code: 0, 
+                data: {},
+                message: '注册失败！'
             }
         }
     },
@@ -47,12 +79,19 @@ module.exports = {
         }
     },
     async getCurrent(ctx, next) {
-        if(ctx.user._id) {
+        console.log(ctx.user)
+        if(ctx.user) {
             ctx.body = {
                 code: 200,
                 data: {
                     ...ctx.user
                 }
+            }
+        }
+        else {
+            ctx.body = {
+                code: 0,
+                message: '请登录'
             }
         }
     },

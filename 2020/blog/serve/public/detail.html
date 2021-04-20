@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="title"></div>
+    <div class="author" style="text-align: right;"></div>
+    <div class="content"></div>
+
+    <textarea id="content" name="" id="" cols="30" rows="10"></textarea>
+    <button id="btn">评论</button>
+
+    <ul id="comment"></ul>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(() => {
+            var id = getQueryVariable('id')
+            var replyId = '';
+            const page = {
+                init() {
+                    this.event();
+                    this.getArticleDetail();
+                    this.getComment();
+                },
+                event() {
+                    const that = this;
+                    $("#btn").click(() => {
+                        that.sendComment()
+                    })
+
+                    $('body').on('click', '.btn-reply', function () {
+                        const id = $(this).data('id')
+                        replyId = id;
+                        $('#input').attr('placholder', '回复：')
+                    })
+                },
+                getArticleDetail() {
+                    $.ajax({
+                        url: 'http://localhost:3030/api/article/detail',
+                        method: 'get',
+                        headers: {
+                            Authorization: localStorage.token
+                        },
+                        data: {
+                            id
+                        },
+                        success(res) {
+                            if (res.code == 200) {
+                                $(".title").html(res.data.title)
+                                $(".content").html(res.data.content)
+                                $(".author").html(res.data.authorName)
+                            }
+                        }
+                    })
+                },
+                getComment() {
+                    $.ajax({
+                        url: 'http://localhost:3030/api/comment/list',
+                        method: 'get',
+                        headers: {
+                            Authorization: localStorage.token
+                        },
+                        data: {
+                            pageSize: 10,
+                            pageIndex: 0,
+                            articleId: id,
+                        },
+                        success(res) {
+                            if (res.code == 200) {
+                                var html = res.data.map(item => {
+                                    return `
+                                    <li>
+                                        <span style="margin-right: 5px;">${item.authorName}</span>:
+                                        <span class="content">${item.content}</span>
+                                        <span>${item.createTime}</span>
+                                        <a href="javascript:;" data-id="${item.id}" class="btn-reply">回复</a>
+                                    </li>`
+                                }).join('')
+                                $("#comment").html(html)
+                            }
+                        }
+                    })
+                },
+                sendComment() {
+                    var content = $("#content").val()
+                    
+                    $.ajax({
+                        method: 'post',
+                        url: 'http://localhost:3030/api/comment/apply',
+                        headers: {
+                            Authorization: localStorage.token
+                        },
+                        data: {
+                            content, id, replyId
+                        },
+                        success: (res) => {
+                            this.getComment()
+                        }
+                    })
+                },
+            }
+            page.init();
+        })
+
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) { return pair[1]; }
+            }
+            return (false);
+        }
+    </script>
+</body>
+
+</html>

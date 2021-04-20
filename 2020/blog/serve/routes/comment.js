@@ -2,7 +2,7 @@ const router = require('koa-router')()
 const Comment = require('../controller/comment')
 
 const routers = router
-    .get('/comment/getComment', Comment.getComment)
-    .post('/comment/sendComment', Comment.sendComment)
+    .get('/comment/list', Comment.list)
+    .post('/comment/apply', Comment.apply)
 
 module.exports = routers

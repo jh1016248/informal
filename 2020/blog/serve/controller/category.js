@@ -1,11 +1,13 @@
 const CONFIG = require('../config/default')
-const Category = require('../models/category')
 
-exports.getList = async (ctx, next) => {
-  const list = await Category.find({  });
-  ctx.body = {
-    code: 200,
-    data: list
-  }
+exports.list = async (ctx, next) => {
+    const { pageSize = 10, pageIndex = 0 } = ctx.request.query;
+    const list = await ctx.utils.mysql(`SELECT * FROM categorys order by createTime desc limit ${pageSize * pageIndex}, ${pageSize} `)
+    list.forEach(item => {
+        item.createTime = ctx.utils.dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')
+    })
+    ctx.body = {
+        code: 200,
+        data: list
+    }
 }
-

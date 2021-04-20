@@ -1,48 +1,28 @@
-const Article = require('../models/article')
-
-exports.getArticles = async ( ctx, next ) => {
-    const { page, size, categoryID } = ctx.request.query;
-    const res = await Article.find({ categoryID }).skip(Number(page)).limit(Number(size)).sort({'_id':-1});
+exports.list = async ( ctx, next ) => {
+    const { pageSize = 10, pageIndex = 0} = ctx.request.query;
+    const list = await ctx.utils.mysql(`SELECT * FROM articles order by createTime desc limit ${pageSize * pageIndex}, ${pageSize} `)
+    list.forEach(item => {
+        item.createTime = ctx.utils.dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')
+    })
     ctx.body = {
         code: 200,
-        data: res
+        data: list
     }
 }
-
-exports.getArticleDetail = async ( ctx, next ) => {
-    const { id } = ctx.request.query;
-    const res = await Article.findById(id);
+exports.detail = async ( ctx, next ) => {
+    const { pageSize = 10, pageIndex = 0, id} = ctx.request.query;
+    const list = await ctx.utils.mysql(`
+        SELECT  
+            a.*,
+            u.name as authorName 
+        from users as u left join articles as a ON(a.author = u.id) WHERE a.id = '${id}' 
+        order by createTime desc limit ${pageSize * pageIndex}, ${pageSize}
+    `)
+    list && list.forEach(item => {
+        item.createTime = ctx.utils.dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')
+    })
     ctx.body = {
         code: 200,
-        data: res
+        data: list[0]
     }
-}
-
-exports.publishArticle = async ( ctx, next ) => {
-    const { title, content, thumb = '' } = ctx.request.body;
-    const user = ctx.user;
-    const now = new Date();
-    const article = {
-        categoryId: 1,
-        author: user._id,
-        authorName: user.account,
-        title,
-        content,
-        thumb,
-        createTime: now,
-    }
-    try{
-        const res = await Article.create(article);
-        ctx.body = {
-            code: 200,
-            data: res._id
-        }
-    }
-    catch(e) {
-        ctx.body  = {
-            code: 0,
-            data: e,
-            message: '发表文章失败！'
-        }
-    } 
 }

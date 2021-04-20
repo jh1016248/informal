@@ -1,12 +1,30 @@
-const mongoose = require('mongoose')
-const CONFIG = require('../config/default')
+const mysql = require('mysql')
+let pools = {}
+let query = (sql, host = 'localhost') => {
+    pools[host] = mysql.createPool({
+        host: host,
+        port: '3306',
+        user: 'root',
+        password: 'root',
+        database: 'tiehu',
+    })
+    return new Promise((resolve, reject) => {
+        pools[host].getConnection((err, connection) => {
+            if(err) {
+                reject(err)
+            }
 
-const database = mongoose.createConnection(CONFIG.mongodb.uri, CONFIG.mongodb.options)
+            connection.query(sql, (err, results) => {
+                if(err) {
+                    reject(err)
+                }
+                else {
+                    resolve(results)
+                }
+                connection.release()
+            })
+        })
+    })
+}
 
-database.then(() => {
-  console.log('成功连接数据库 Mongodb')
-}).catch(() => {
-  console.log('连接数据库 Mongodb 失败')
-})
-
-module.exports = database
+module.exports = query
