@@ -18,9 +18,9 @@ export default (props) => {
   }, [categoryId])
 
   const RenderList = () => (articleList.map(item => (
-      <article className="item" key={ item._id }>
+      <article className="item" key={ item.id }>
           <div className="article-container">
-              <h2 className="title"  onClick={() => { router.push(`/article?id=${item._id}`) }}>{item.title}</h2>
+              <h2 className="title"  onClick={() => { router.push(`/article?id=${item.id}`) }}>{item.title}</h2>
               <div className="describe">{item.describe}</div>
           </div>
           <div className="article-thumb">

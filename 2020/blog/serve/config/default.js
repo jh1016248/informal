@@ -8,10 +8,10 @@ module.exports = {
   whiteList: [
     /^\/api\/user\/login/, 
     /^\/api\/user\/register/,
-    /^\/api\/article\/getArticles/,
-    /^\/api\/article\/getArticleDetail/,
-    /^\/api\/comment\/getComment/,
-    /^\/api\/category\/list/,
+    /^\/api\/article\/detail/,
+    /^\/api\/article\/list/,
+    /^\/api\/comment\/list/,
+    /^\/api\/comment\/replyList/,
     /^\/public/,
     /favicon.ico/,
   ]

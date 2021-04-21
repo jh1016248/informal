@@ -13,7 +13,13 @@ module.exports = async (ctx, next) => {
         }
     })
     if (isWhiteRouter) {
-        return await next();
+        try {
+            const res = await verify(token.split(' ')[1], CONFIG.secret)
+            ctx.user = res;
+            return await next()
+        } catch (e) {
+            return await next();
+        }
     }
 
     if (!token) {

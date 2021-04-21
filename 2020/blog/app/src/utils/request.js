@@ -14,7 +14,7 @@ request.interceptors.response.use(response => {
         notification.error({
             message: '请重新登录',
         });
-        window.location.href = '/login';
+        // window.location.href = '/login';
         return 
     }
     if(response.data.code === 0 && response.data.message) {
@@ -29,7 +29,7 @@ request.interceptors.response.use(response => {
         notification.error({
             message: '请重新登录',
         });
-        window.location.href = '/login';
+        // window.location.href = '/login';
         return 
     }
     if(e.message === 'Request failed with status code 404') {

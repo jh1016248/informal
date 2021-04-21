@@ -21,6 +21,9 @@ app.use(async (ctx, next) => {
         mysql,
         uuid,
         dayjs,
+        formatDate(time = new Date()) {
+            return dayjs(time).format('YYYY-MM-DD HH:mm:ss')
+        }
     }
     await next()
 })

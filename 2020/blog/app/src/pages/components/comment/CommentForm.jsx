@@ -34,7 +34,7 @@ const CommentForm = ({
         if(value === '') {
             return
         }
-        sendComment({ content: value, articleId, replyId, replyUserId, replyUserName }).then(res => {
+        sendComment({ content: value, articleId, replyId, replyUserId }).then(res => {
             console.log(res)
             onSuccess();
             inputRef.current.innerHTML = '';

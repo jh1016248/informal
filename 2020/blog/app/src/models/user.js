@@ -13,7 +13,7 @@ export default {
                 return result
             }
             else {
-                localStorage.setItem('token', result.data);
+                localStorage.setItem('token', 'Bearer ' + result.data.token);
                 yield put({
                     type: 'getUserInfo'
                 })
@@ -33,8 +33,6 @@ export default {
     },
     reducers: { 
         saveUserInfo(state, { user }) {
-            console.log(state)
-            console.log(user)
             return {
                 ...state,
                 userInfo: user

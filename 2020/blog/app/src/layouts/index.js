@@ -47,7 +47,7 @@ function BasicLayout({ location, children, user, dispatch }) {
         <div className={styles.header}>
             <div className="wrap flex mt15 align-center">
                 <Link to="/" className="logo dib"><img src={ require('../assets/logo.png') } alt="贴乎"/></Link>
-                {user._id ? <RenderUser />: <RenderLoginBox /> }
+                {user.id ? <RenderUser />: <RenderLoginBox /> }
             </div>
         </div>
         <div className="wrap flex mt20">

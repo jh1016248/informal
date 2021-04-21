@@ -13,12 +13,7 @@ export default () => {
             account, password
         }
 
-        login(formData).then(res => {
-            if(res.code === 200) {
-                localStorage.token = res.token;
-                router.replace('/')
-            }
-        })
+        login(formData)
     }
     return (
         <div className="login-page">

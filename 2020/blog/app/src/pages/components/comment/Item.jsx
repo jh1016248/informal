@@ -5,13 +5,14 @@ const Item = ({ replyId = '', data, articleId, onSuccess }) => {
     const [showComment, setShowComment] = useState(false);
 
     const RenderChildren = ({replyId = '', list}) => {
+        console.log(list)
         return (
             <div className="comment-children">
                 {
                     list.map(item => (
                         <Item 
                             replyId={ replyId }
-                            key={item._id}
+                            key={item.id}
                             data={item} 
                             articleId={articleId}
                             onSuccess={onSuccess}/>
@@ -45,12 +46,11 @@ const Item = ({ replyId = '', data, articleId, onSuccess }) => {
                         showAvatar={false}
                         articleId={articleId}
                         className={ data.replyId ?  'children-comment-form'  : '' }
-                        replyId={ replyId || data._id }
-                        replyUserName={ data.authorName }
+                        replyId={ replyId || data.id }
                         replyUserId={ data.author }
                         onSuccess={onSuccess}></CommentForm> : null}
-                { data.children && data.children.length ? 
-                    <RenderChildren replyId={data._id} list={data.children}></RenderChildren> :null }
+                { data.replyList && data.replyList.length ? 
+                    <RenderChildren replyId={data.id} list={data.replyList}></RenderChildren> :null }
             </div>
         </div>
     )

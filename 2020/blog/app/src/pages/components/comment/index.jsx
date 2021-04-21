@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getComment } from '@/services/comment';
+import { getComment, getReplyList } from '@/services/comment';
 import CommentForm from './CommentForm';
 import Item from './Item'
 
@@ -8,7 +8,29 @@ export default ({ articleId }) => {
     const getList = () => {
         getComment( articleId ).then(res => {
             if(res.code === 200) {
-                setList(res.data)
+                res.data.list.forEach(item => {
+                    item.replyList = [];
+                })
+                getReplyList(articleId).then(res2 => {
+                    if(res2.code === 200) {
+                        let map = {};
+                        res2.data.forEach(item => {
+                            if(!map[item.replyId]) {
+                                map[item.replyId] = [item]
+                            }
+                            else {
+                                map[item.replyId].push(item)
+                            }
+                        })
+
+                        res.data.list.forEach(item => {
+                            if(map[item.id]) {
+                                item.replyList = map[item.id]
+                            }
+                        })
+                        setList(res.data.list)
+                    }
+                })
             }
         })
     }
@@ -22,7 +44,7 @@ export default ({ articleId }) => {
                 <Item data={item} 
                     articleId={articleId}
                     onSuccess={getList} 
-                    key={item._id}>
+                    key={item.id}>
                     </Item>
             )}
         </div>

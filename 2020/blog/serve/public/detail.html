@@ -9,103 +9,132 @@
 </head>
 
 <body>
-    <div class="title"></div>
-    <div class="author" style="text-align: right;"></div>
-    <div class="content"></div>
+    <div id="app">
+        <div class="title">{{detail.title}}</div>
+        <div class="author" style="text-align: right;">{{detail.authorName}}</div>
+        <div class="content">{{detail.content}}</div>
 
-    <textarea id="content" name="" id="" cols="30" rows="10"></textarea>
-    <button id="btn">评论</button>
+        <textarea id="content" v-model="content" name="" placeholder="" id="" cols="30" rows="10"></textarea>
+        <button id="btn" @click="sendComment">发送</button>
 
-    <ul id="comment"></ul>
+        <ul id="comment" v-if="commentList.length">
+            <li v-for="item in commentList">
+                <span style="margin-right: 5px;">{{item.authorName}}</span>
+                <span class="content">{{item.content}}</span>
+                <span>{{item.createTime}}</span>
+                <a href="javascript:;"  class="btn-reply" @click="handleReply(item.id)">回复</a>
+                <ul v-if="item.replyList" v-for="reply in item.replyList">
+                    <li>
+                        <span style="margin-right: 5px;">{{reply.authorName}}</span>
+                        <span class="content">
+                            <span :data-id="reply.replyUserId" v-if="reply.replyUserName">回复：{{reply.replyUserName}}</span>
+                            {{reply.content}}</span>
+                        <span>{{reply.createTime}}</span>
+                        <a href="javascript:;"  class="btn-reply" @click="handleReply(item.id, reply.author)">回复</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <span v-if="total > commentListQuery.pageSize * (commentListQuery.pageIndex + 1)" @click="loadMore">加载更多</span>
+    </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+    <script src="./js/common.js"></script>
     <script type="text/javascript">
+
         $(() => {
             var id = getQueryVariable('id')
-            var replyId = '';
-            const page = {
-                init() {
-                    this.event();
+            var vm = new Vue({
+                data: {
+                    replyUserId: '',
+                    replyId: '',
+                    content: '',
+                    detail: {},
+                    commentList: [],
+                    total: 0,
+                    commentListQuery: {
+                        pageSize: 3,
+                        pageIndex: 0
+                    },
+                },
+                methods: {
+                    getArticleDetail() {
+                        request.get('/api/article/detail', { id }).then(res => {
+                            if (res.code == 200) {
+                                this.detail = res.data;
+                            }
+                        })
+                    },
+                    getComment(reset = false) {
+                        const data = {
+                            ...this.commentListQuery,
+                            articleId: id,
+                        }
+                        request.get('/api/comment/list', data).then(res => {
+                            if (res.code == 200) {
+                                res.data.list && res.data.list.forEach(item => {
+                                    item.replyList = []
+                                })
+                                this.commentList = res.data.list
+                                this.total = res.data.total;
+                                this.getReplyList()
+                            }
+                        })
+                    },
+                    getReplyList() {
+                        const that = this;
+                        const data = {
+                            ...this.commentListQuery,
+                            articleId: id,
+                        }
+                        request.get('/api/comment/replyList', data).then(res => {
+                            if (res.code == 200) {
+                                let map = {};
+                                res.data.forEach(item => {
+                                    if(!map[item.replyId]) {
+                                        map[item.replyId] = [item]
+                                    }
+                                    else {
+                                        map[item.replyId].push(item)
+                                    }
+                                })
+
+                                this.commentList.forEach(item => {
+                                    if(map[item.id]) {
+                                        item.replyList = map[item.id]
+                                    }
+                                })
+                            }
+                        })
+                    },
+                    loadMore() {
+                        this.commentListQuery.pageIndex += 1;
+                        this.getComment()
+                    },
+                    handleReply(replyId, replyUserId = '') {
+                        this.replyId = replyId
+                        this.replyUserId = replyUserId
+                    },
+                    sendComment() {
+                        const data = {
+                            content: this.content, 
+                            id, 
+                            replyId: this.replyId, 
+                            replyUserId: this.replyUserId
+                        }
+                        request.post('/api/comment/reply', data).then(res => {
+                            if (res.code == 200) {
+                                this.getComment()
+                            }
+                        })
+                    },
+                },
+                mounted() {
                     this.getArticleDetail();
                     this.getComment();
                 },
-                event() {
-                    const that = this;
-                    $("#btn").click(() => {
-                        that.sendComment()
-                    })
-
-                    $('body').on('click', '.btn-reply', function () {
-                        const id = $(this).data('id')
-                        replyId = id;
-                        $('#input').attr('placholder', '回复：')
-                    })
-                },
-                getArticleDetail() {
-                    $.ajax({
-                        url: 'http://localhost:3030/api/article/detail',
-                        method: 'get',
-                        headers: {
-                            Authorization: localStorage.token
-                        },
-                        data: {
-                            id
-                        },
-                        success(res) {
-                            if (res.code == 200) {
-                                $(".title").html(res.data.title)
-                                $(".content").html(res.data.content)
-                                $(".author").html(res.data.authorName)
-                            }
-                        }
-                    })
-                },
-                getComment() {
-                    $.ajax({
-                        url: 'http://localhost:3030/api/comment/list',
-                        method: 'get',
-                        headers: {
-                            Authorization: localStorage.token
-                        },
-                        data: {
-                            pageSize: 10,
-                            pageIndex: 0,
-                            articleId: id,
-                        },
-                        success(res) {
-                            if (res.code == 200) {
-                                var html = res.data.map(item => {
-                                    return `
-                                    <li>
-                                        <span style="margin-right: 5px;">${item.authorName}</span>:
-                                        <span class="content">${item.content}</span>
-                                        <span>${item.createTime}</span>
-                                        <a href="javascript:;" data-id="${item.id}" class="btn-reply">回复</a>
-                                    </li>`
-                                }).join('')
-                                $("#comment").html(html)
-                            }
-                        }
-                    })
-                },
-                sendComment() {
-                    var content = $("#content").val()
-                    
-                    $.ajax({
-                        method: 'post',
-                        url: 'http://localhost:3030/api/comment/apply',
-                        headers: {
-                            Authorization: localStorage.token
-                        },
-                        data: {
-                            content, id, replyId
-                        },
-                        success: (res) => {
-                            this.getComment()
-                        }
-                    })
-                },
-            }
-            page.init();
+            })
+            vm.$mount('#app')
         })
 
         function getQueryVariable(variable) {
